@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AAYU FOREX OPERATOR | Institutional Execution Terminal</title>
-  <meta name="description" content="AAYU FOREX OPERATOR — Institutional Execution, MT5 Algo EA, Liquidity & Price Action Journal.">
+  <meta name="description" content="AAYU FOREX OPERATOR — Institutional Execution Engine, MT5 Algo EA, Liquidity & Price Action Journal.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +15,10 @@
 
   <style>
     :root {
-      --bg-dark: #07090e;
-      --card-bg: rgba(14, 18, 27, 0.75);
-      --card-hover: rgba(20, 26, 38, 0.95);
+      --bg-dark: #05070b;
+      --bg-surface: #0b0f17;
+      --card-bg: rgba(14, 19, 29, 0.75);
+      --card-hover: rgba(20, 27, 41, 0.95);
       --surface-border: rgba(255, 255, 255, 0.08);
       --surface-border-bright: rgba(99, 102, 241, 0.4);
       --text-main: #f8fafc;
@@ -47,41 +48,60 @@
       background-image: 
         linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px),
-        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.07) 0%, transparent 40%);
-      background-size: 35px 35px, 35px 35px, 100% 100%, 100% 100%;
+        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+      background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
       background-attachment: fixed;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1.25rem 1rem 4rem 1rem;
+      padding: 1rem 1rem 3.5rem 1rem;
     }
 
     .mono { font-family: var(--font-mono); }
 
-    /* Sticky Navbar */
+    /* Top Live Ticker Ribbon */
+    .ticker-bar {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 0.5rem 1rem;
+      background: rgba(11, 15, 23, 0.9);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin-bottom: 1.25rem;
+      scrollbar-width: none;
+    }
+    .ticker-bar::-webkit-scrollbar { display: none; }
+    .ticker-item { display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+    .ticker-item .val { color: var(--text-main); font-weight: 700; }
+    .ticker-item .up { color: var(--bull); }
+
+    /* Sticky Navigation Header */
     header {
       position: sticky;
-      top: 1rem;
+      top: 0.75rem;
       z-index: 100;
       background: rgba(11, 15, 23, 0.85);
       backdrop-filter: blur(16px);
       border: 1px solid var(--surface-border);
       border-radius: 16px;
-      padding: 0.85rem 1.5rem;
-      margin-bottom: 2rem;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6);
     }
 
-    .brand-wrap { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: inherit; }
+    .brand-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
     .brand-badge {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       background: linear-gradient(135deg, var(--accent-neon), var(--accent-cyan));
       border-radius: 10px;
       display: flex;
@@ -89,40 +109,24 @@
       justify-content: center;
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: #fff;
       box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
     }
 
     .brand-text h1 {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     .brand-text p {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-dim);
       font-family: var(--font-mono);
       text-transform: uppercase;
     }
-
-    .nav-links {
-      display: none;
-      list-style: none;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: var(--text-dim);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--bull); }
 
     .status-badge {
       display: flex;
@@ -130,9 +134,9 @@
       gap: 0.45rem;
       background: var(--bull-glow);
       border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.35rem 0.8rem;
+      padding: 0.3rem 0.75rem;
       border-radius: 99px;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-family: var(--font-mono);
       font-weight: 600;
       color: var(--bull);
@@ -149,203 +153,89 @@
 
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 2.5rem 1rem 3rem;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid var(--accent-neon);
-      color: #a5b4fc;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 6vw, 3.8rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero .tagline {
-      font-size: clamp(1.1rem, 3.2vw, 1.35rem);
-      color: var(--text-main);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtext {
-      font-size: 0.9rem;
-      color: var(--text-dim);
-      max-width: 550px;
-      margin: 0 auto 1.75rem;
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.4rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .btn-primary { background: #fff; color: #000; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); }
-    .btn-outline { background: transparent; border: 1px solid var(--surface-border); color: var(--text-main); }
-    .btn-outline:hover { border-color: var(--accent-neon); color: #a5b4fc; }
-
-    /* Promo Banners Grid */
-    .promo-grid {
+    /* Session Clocks Bar */
+    .session-clocks {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
     }
 
-    .promo-card {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 16px;
-      padding: 1.5rem;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .promo-card.ea-card {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
-      border-color: rgba(6, 182, 212, 0.25);
-    }
-
-    .ribbon {
-      position: absolute;
-      right: -25px;
-      top: 18px;
-      background: var(--gold);
-      color: #000;
-      font-family: var(--font-mono);
-      font-weight: 800;
-      font-size: 0.62rem;
-      padding: 0.2rem 2.2rem;
-      transform: rotate(24deg);
-    }
-
-    .promo-card.ea-card .ribbon { background: var(--accent-cyan); }
-
-    .promo-card h2 {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    .promo-card p {
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      line-height: 1.55;
-      margin-bottom: 1rem;
-    }
-
-    .progress-track {
-      height: 8px;
-      background: rgba(0,0,0,0.5);
-      border-radius: 99px;
-      border: 1px solid var(--surface-border);
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 45%;
-      background: linear-gradient(90deg, var(--gold), var(--bull));
-      border-radius: 99px;
-    }
-
-    /* Partner Desk (XM & CoinDCX) */
-    .partner-section {
+    .clock-card {
       background: var(--card-bg);
       border: 1px solid var(--surface-border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .partner-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .partner-box {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--surface-border);
-      border-radius: 12px;
-      padding: 1.25rem;
+      border-radius: 10px;
+      padding: 0.6rem 0.85rem;
       display: flex;
-      flex-direction: column;
       justify-content: space-between;
-      gap: 1rem;
-      transition: border-color 0.2s;
-    }
-
-    .partner-box:hover {
-      border-color: var(--surface-border-bright);
-    }
-
-    .partner-tag {
-      font-size: 0.68rem;
+      align-items: center;
+      font-size: 0.75rem;
       font-family: var(--font-mono);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--accent-cyan);
     }
 
-    /* Section Cards Grid (Mindset, Markets, Strategy) */
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
+    .clock-status { font-size: 0.65rem; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 700; }
+    .clock-open { background: var(--bull-glow); color: var(--bull); border: 1px solid rgba(16,185,129,0.3); }
+    .clock-closed { background: rgba(255,255,255,0.05); color: var(--text-subtle); }
 
-    .section-subtitle {
+    /* Primary Category Switcher Tabs */
+    .category-nav {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 0.35rem;
+      gap: 0.35rem;
+      margin-bottom: 1.75rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .category-nav::-webkit-scrollbar { display: none; }
+
+    .cat-tab {
+      flex: 1;
+      min-width: 140px;
+      background: transparent;
+      border: none;
       color: var(--text-dim);
-      font-size: 0.82rem;
-      margin-bottom: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
+    .cat-tab.active {
+      background: var(--text-main);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+    }
+
+    /* Category Content Sections */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .tab-pane.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Grids */
     .grid-stack {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .glass-card {
@@ -356,25 +246,9 @@
       padding: 1.25rem;
       transition: all 0.2s;
     }
+    .glass-card:hover { border-color: var(--surface-border-bright); }
 
-    .glass-card:hover {
-      border-color: var(--surface-border-bright);
-      transform: translateY(-2px);
-    }
-
-    .glass-card h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-      color: var(--text-main);
-    }
-
-    .glass-card p {
-      font-size: 0.82rem;
-      color: var(--text-dim);
-      line-height: 1.5;
-    }
-
-    /* Performance & Chart.js */
+    /* Performance Metrics Row */
     .metrics-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -399,7 +273,7 @@
 
     .metric-card .val {
       font-family: var(--font-display);
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-top: 0.2rem;
     }
@@ -409,16 +283,150 @@
       border: 1px solid var(--surface-border);
       border-radius: 14px;
       padding: 1.25rem;
-      margin-bottom: 2.5rem;
-      height: 260px;
+      margin-bottom: 1.5rem;
+      height: 250px;
     }
 
-    /* Journal Feed & Tables */
+    /* Promo & Unlock Cards */
+    .promo-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .promo-card.ea-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+      border-color: rgba(6, 182, 212, 0.25);
+    }
+
+    .ribbon {
+      position: absolute;
+      right: -25px;
+      top: 18px;
+      background: var(--gold);
+      color: #000;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.62rem;
+      padding: 0.2rem 2.2rem;
+      transform: rotate(24deg);
+    }
+    .promo-card.ea-card .ribbon { background: var(--accent-cyan); }
+
+    .progress-track {
+      height: 8px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 99px;
+      border: 1px solid var(--surface-border);
+      overflow: hidden;
+      margin: 0.75rem 0 1rem 0;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, var(--gold), var(--bull));
+      border-radius: 99px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: #fff; color: #000; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); }
+    .btn-outline { background: transparent; border: 1px solid var(--surface-border); color: var(--text-main); }
+    .btn-outline:hover { border-color: var(--accent-neon); color: #a5b4fc; }
+
+    /* Interactive Risk & Lot Size Calculator */
+    .calc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .calc-input-group label {
+      display: block;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .calc-input-group input, .calc-input-group select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .calc-input-group input:focus, .calc-input-group select:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .calc-result-box {
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1.25rem;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    /* Partner Box (XM & CoinDCX) */
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .partner-box {
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.2rem;
+      transition: border-color 0.2s;
+    }
+    .partner-box:hover { border-color: var(--surface-border-bright); }
+
+    /* Journal Cards Grid */
     .journal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.25rem;
-      margin-bottom: 2.5rem;
     }
 
     .log-card {
@@ -430,11 +438,7 @@
       flex-direction: column;
       transition: all 0.25s ease;
     }
-
-    .log-card:hover {
-      border-color: var(--surface-border-bright);
-      transform: translateY(-3px);
-    }
+    .log-card:hover { border-color: var(--surface-border-bright); transform: translateY(-3px); }
 
     .chart-thumb {
       height: 170px;
@@ -443,7 +447,6 @@
       cursor: pointer;
       overflow: hidden;
     }
-
     .chart-thumb svg { width: 100%; height: 100%; }
 
     .tag-session {
@@ -460,13 +463,7 @@
       font-weight: 600;
     }
 
-    .card-body {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      flex-grow: 1;
-    }
+    .card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; flex-grow: 1; }
 
     .badge {
       font-size: 0.68rem;
@@ -476,7 +473,6 @@
       border-radius: 4px;
       text-transform: uppercase;
     }
-
     .badge-win { background: var(--bull-glow); color: var(--bull); border: 1px solid rgba(16,185,129,0.3); }
     .badge-loss { background: var(--bear-glow); color: var(--bear); border: 1px solid rgba(244,63,94,0.3); }
 
@@ -489,20 +485,8 @@
       padding: 0.55rem;
       text-align: center;
     }
-
-    .stat-matrix small {
-      display: block;
-      font-size: 0.65rem;
-      font-family: var(--font-mono);
-      color: var(--text-subtle);
-      text-transform: uppercase;
-    }
-
-    .stat-matrix span {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
+    .stat-matrix small { display: block; font-size: 0.65rem; font-family: var(--font-mono); color: var(--text-subtle); text-transform: uppercase; }
+    .stat-matrix span { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; }
 
     /* Modal */
     .modal-overlay {
@@ -516,7 +500,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .modal-overlay.active { display: flex; }
 
     .modal-box {
@@ -556,23 +539,15 @@
       display: flex;
       justify-content: center;
       gap: 1.25rem;
-      margin: 1rem 0;
+      margin: 0.85rem 0;
       flex-wrap: wrap;
     }
 
-    .footer-links a {
-      color: var(--text-main);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .footer-links a { color: var(--text-main); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--accent-cyan); }
 
-    @media (min-width: 768px) {
-      .nav-links { display: flex; }
-    }
-
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .session-clocks { grid-template-columns: 1fr 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -580,6 +555,15 @@
 <body>
 
   <div class="container">
+
+    <!-- Live Real-Time Price Ticker Ribbon -->
+    <div class="ticker-bar">
+      <div class="ticker-item"><span>XAUUSD:</span> <span class="val">2,414.20</span> <span class="up">▲ +1.2%</span></div>
+      <div class="ticker-item"><span>BTCUSD:</span> <span class="val">59,850.00</span> <span class="up">▲ +2.4%</span></div>
+      <div class="ticker-item"><span>EURUSD:</span> <span class="val">1.0924</span> <span>-0.1%</span></div>
+      <div class="ticker-item"><span>GBPUSD:</span> <span class="val">1.2860</span> <span class="up">▲ +0.3%</span></div>
+      <div class="ticker-item" style="color: var(--accent-cyan);"><span>MT5 STATUS:</span> <span class="val">CONNECTED</span></div>
+    </div>
     
     <!-- Top Sticky Header -->
     <header>
@@ -591,174 +575,44 @@
         </div>
       </a>
 
-      <ul class="nav-links">
-        <li><a href="#mindset">Mindset</a></li>
-        <li><a href="#markets">Markets</a></li>
-        <li><a href="#performance">Performance</a></li>
-        <li><a href="#journal">Journal</a></li>
-        <li><a href="#strategy">Strategy</a></li>
-      </ul>
-
       <div class="status-badge">
         <div class="pulse-dot"></div>
         <span>DESK LIVE</span>
       </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-tag">@fxop__247 // INSTITUTIONAL DESK</div>
-      <h1>AAYU<br><span style="color: var(--text-dim); font-weight:700;">FOREX OPERATOR</span></h1>
-      <div class="tagline">«Small Trades. Big Moves.»</div>
-      <p class="subtext">Liquidity • Price Action • Disciplined Execution. Real-time setup logs, mechanical algorithms, and risk management.</p>
-      
-      <div class="btn-group">
-        <a href="#journal" class="btn btn-primary">View Live Journal</a>
-        <a href="https://t.me/fxop247" target="_blank" class="btn btn-outline" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">
-          🚀 Telegram (@fxop247)
-        </a>
-        <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-outline">
-          Instagram (@fxop__247)
-        </a>
+    <!-- Live Session Clocks Bar -->
+    <div class="session-clocks">
+      <div class="clock-card">
+        <span>🇬🇧 London</span>
+        <span class="clock-status clock-open">ACTIVE</span>
       </div>
-    </section>
-
-    <!-- Top Promo Banners Grid -->
-    <section class="promo-grid">
-      <!-- 10K Followers Strategy Unlock -->
-      <div class="promo-card">
-        <div class="ribbon">10K REVEAL</div>
-        <div>
-          <h2>🔒 Institutional Strategy Blueprint</h2>
-          <p>Hamara proprietary Order Flow, Asian Range Manipulation & Liquidity Sweep framework <strong>10,000 Followers</strong> hone par 100% FREE publish hoga.</p>
-        </div>
-        <div>
-          <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-family:var(--font-mono); margin-bottom:0.35rem;">
-            <span>Milestone Progress</span>
-            <span style="color: var(--gold); font-weight:700;">Target: 10,000</span>
-          </div>
-          <div class="progress-track"><div class="progress-fill"></div></div>
-          <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-primary" style="font-size:0.8rem; padding:0.5rem 1rem;">
-            ⚡ Follow on Instagram
-          </a>
-        </div>
+      <div class="clock-card">
+        <span>🇺🇸 New York</span>
+        <span class="clock-status clock-open">ACTIVE</span>
       </div>
-
-      <!-- Free MT5 EA Launch Alert -->
-      <div class="promo-card ea-card">
-        <div class="ribbon">FREE EA BOT</div>
-        <div>
-          <h2>🤖 Free MT5 Algo EA (Coming Soon)</h2>
-          <p>Hamara proprietary automated <strong>Expert Advisor (EA) for MetaTrader 5</strong> jald launch ho raha hai. Zero cost, fully automated risk control.</p>
-        </div>
-        <div>
-          <div style="font-family:var(--font-mono); font-size:0.74rem; color:var(--accent-cyan); margin-bottom:0.6rem;">
-            STATUS: MT5 Algo Execution Testing
-          </div>
-          <a href="https://t.me/fxop247" target="_blank" class="btn btn-primary" style="background:var(--accent-cyan); color:#000; font-size:0.8rem; padding:0.5rem 1rem;">
-            🚀 Join Telegram for Early Access
-          </a>
-        </div>
+      <div class="clock-card">
+        <span>🇯🇵 Tokyo</span>
+        <span class="clock-status clock-closed">CLOSED</span>
       </div>
-    </section>
-
-    <!-- Partner Broker Desk (XM & CoinDCX with Referral Links) -->
-    <section class="partner-section">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-        <div>
-          <h2 style="font-family:var(--font-display); font-size:1.25rem;">Official Execution Partners</h2>
-          <p style="font-size:0.8rem; color:var(--text-dim);">Ham Forex & Crypto trading ke liye XM aur CoinDCX ka use karte hain:</p>
-        </div>
-        <span class="mono" style="font-size:0.72rem; color:var(--accent-cyan);">VERIFIED REBATES & BONUSES</span>
+      <div class="clock-card">
+        <span>🇦🇺 Sydney</span>
+        <span class="clock-status clock-closed">CLOSED</span>
       </div>
+    </div>
 
-      <div class="partner-grid">
-        <!-- XM Global Partner Box -->
-        <div class="partner-box">
-          <div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <h3 style="font-family:var(--font-display); font-size:1.05rem;">XM Global (Forex & Gold)</h3>
-              <span class="partner-tag">MetaTrader 4/5</span>
-            </div>
-            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">
-              Ultra-low spreads on Gold (XAUUSD) & EURUSD, zero requotes, and instant local deposits/withdrawals.
-            </p>
-          </div>
-          <a href="https://www.xmglobal.com/referral?token=euiaFYBdchpNgiCGGQAtIQ" target="_blank" class="btn btn-outline" style="font-size:0.8rem; border-color: var(--bull); color: var(--bull);">
-            📈 Open XM Account (Rebates Activated)
-          </a>
-        </div>
+    <!-- Category Switcher Tabs (Zero Long-Scroll) -->
+    <nav class="category-nav">
+      <button class="cat-tab active" onclick="switchCategory('tab-terminal', this)">📊 Terminal Desk</button>
+      <button class="cat-tab" onclick="switchCategory('tab-algo', this)">🤖 Algo & EA Lab</button>
+      <button class="cat-tab" onclick="switchCategory('tab-partners', this)">🏦 Broker Desk</button>
+      <button class="cat-tab" onclick="switchCategory('tab-journal', this)">📓 Trade Logs</button>
+      <button class="cat-tab" onclick="switchCategory('tab-strategy', this)">🔒 10K Blueprint</button>
+    </nav>
 
-        <!-- CoinDCX Partner Box -->
-        <div class="partner-box">
-          <div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <h3 style="font-family:var(--font-display); font-size:1.05rem;">CoinDCX (Crypto Desk)</h3>
-              <span class="partner-tag">Win ₹10L BTC</span>
-            </div>
-            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">
-              Trade Spot or Futures on CoinDCX and win assured Bitcoin rewards worth up to ₹10 Lakhs.
-            </p>
-          </div>
-          <a href="https://invite.coindcx.com/46310547" target="_blank" class="btn btn-outline" style="font-size:0.8rem; border-color: var(--gold); color: var(--gold);">
-            🪙 Claim ₹10L BTC Reward on CoinDCX
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- The Operator Mindset -->
-    <section id="mindset" style="margin-bottom: 2.5rem;">
-      <div class="section-title">THE OPERATOR MINDSET</div>
-      <div class="section-subtitle">Execution principles governing every trade setup</div>
-      <div class="grid-stack">
-        <div class="glass-card">
-          <h3 class="mono">01. Liquidity</h3>
-          <p>Identifying institutional order clusters and resting market stops before anticipating directional continuation.</p>
-        </div>
-        <div class="glass-card">
-          <h3 class="mono">02. Price Action</h3>
-          <p>Reading real market structure and clean displacement rather than relying on lagging indicators.</p>
-        </div>
-        <div class="glass-card">
-          <h3 class="mono">03. Execution</h3>
-          <p>Strict patience over impulse. Taking action only when pre-defined setup parameters are fully confirmed.</p>
-        </div>
-        <div class="glass-card">
-          <h3 class="mono">04. Discipline</h3>
-          <p>Systematic risk management over emotional bias. Risk is defined before entry is clicked.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Primary Markets -->
-    <section id="markets" style="margin-bottom: 2.5rem;">
-      <div class="section-title">PRIMARY MARKETS</div>
-      <div class="section-subtitle">Core instruments traded using order flow models</div>
-      <div class="grid-stack" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-        <div class="glass-card">
-          <h3 class="mono">XAUUSD (Gold / USD)</h3>
-          <p style="color:var(--bull); font-size:0.72rem; margin-bottom:0.3rem;" class="mono">NEW YORK & LONDON EXPANSIONS</p>
-          <p>Session liquidity sweeps and momentum imbalances inside NY killzones on XM MT5.</p>
-        </div>
-        <div class="glass-card">
-          <h3 class="mono">BTCUSD (Bitcoin)</h3>
-          <p style="color:var(--bull); font-size:0.72rem; margin-bottom:0.3rem;" class="mono">CRYPTO MACRO CYCLES</p>
-          <p>Higher timeframe structural shifts, swing liquidity distributions on CoinDCX.</p>
-        </div>
-        <div class="glass-card">
-          <h3 class="mono">EURUSD / GBPUSD</h3>
-          <p style="color:var(--bull); font-size:0.72rem; margin-bottom:0.3rem;" class="mono">FOREX MAJORS</p>
-          <p>Session Judas swings and algorithmic Fair Value Gap retests on MetaTrader 5.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Performance Dashboard & Equity Curve -->
-    <section id="performance" style="margin-bottom: 2.5rem;">
-      <div class="section-title">PERFORMANCE DASHBOARD</div>
-      <div class="section-subtitle">Documented execution metrics and account growth</div>
-      
+    <!-- TAB 1: TERMINAL DESK (Home Dashboard & Equity) -->
+    <section id="tab-terminal" class="tab-pane active">
+      <!-- Performance Metrics -->
       <div class="metrics-row">
         <div class="metric-card">
           <small>Win Rate 🎯</small>
@@ -778,35 +632,166 @@
         </div>
       </div>
 
+      <!-- Equity Curve -->
       <div class="chart-box">
         <canvas id="equityChart"></canvas>
       </div>
+
+      <!-- Mindset Grid -->
+      <div class="grid-stack">
+        <div class="glass-card">
+          <h3 class="mono" style="color: var(--accent-cyan); margin-bottom: 0.3rem;">01. Liquidity First</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Detecting institutional stop sweeps and liquidity pools prior to entering directional momentum expansions.</p>
+        </div>
+        <div class="glass-card">
+          <h3 class="mono" style="color: var(--bull); margin-bottom: 0.3rem;">02. Price Action</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Reading real market displacement and Fair Value Gaps (FVG) instead of relying on lagging lagging oscillators.</p>
+        </div>
+        <div class="glass-card">
+          <h3 class="mono" style="color: var(--accent-neon); margin-bottom: 0.3rem;">03. Risk Management</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Fixed 1-2% account exposure. Stops strictly placed at structural invalidation levels. Daily drawdown hard capped at 2%.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Trading Journal -->
-    <section id="journal" style="margin-bottom: 2.5rem;">
-      <div class="section-title">LIVE TRADING JOURNAL</div>
-      <div class="section-subtitle">Real-time setup logs with artificial vector candlestick charts (Click to inspect)</div>
+    <!-- TAB 2: ALGO & FREE EA LAB -->
+    <section id="tab-algo" class="tab-pane">
+      <div class="promo-card ea-card">
+        <div class="ribbon">FREE EA BOT</div>
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.4rem;">🤖 Automated MT5 Expert Advisor (Coming Soon)</h2>
+          <p style="color: var(--text-dim); font-size: 0.88rem; line-height: 1.6;">
+            Hamara automated institutional <strong>MetaTrader 5 Expert Advisor (EA)</strong> jald launch ho raha hai. Yeh bot London & New York session imbalances aur Asian range liquidity sweep setups ko 100% mechanical rules ke sath automate karega.
+          </p>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a href="https://t.me/fxop247" target="_blank" class="btn btn-primary" style="background: var(--accent-cyan); color: #000;">
+            🚀 Join Telegram for EA Early Access & Beta Tests
+          </a>
+        </div>
+      </div>
+
+      <!-- Lot Size Calculator Built-In -->
+      <div class="calc-card">
+        <h3 style="font-family: var(--font-display); font-size: 1.15rem;">📐 Institutional Lot Size & Risk Calculator</h3>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">Apne account size aur Stop Loss pips ke hisab se exact safe lot size calculate karein:</p>
+        
+        <div class="calc-grid">
+          <div class="calc-input-group">
+            <label>Account Balance ($)</label>
+            <input type="number" id="calcBalance" value="10000" oninput="calculateLotSize()">
+          </div>
+          <div class="calc-input-group">
+            <label>Risk Percentage (%)</label>
+            <input type="number" id="calcRisk" value="1" step="0.5" oninput="calculateLotSize()">
+          </div>
+          <div class="calc-input-group">
+            <label>Stop Loss (Pips)</label>
+            <input type="number" id="calcPips" value="20" oninput="calculateLotSize()">
+          </div>
+          <div class="calc-input-group">
+            <label>Asset Pair</label>
+            <select id="calcPair" onchange="calculateLotSize()">
+              <option value="10">Forex Majors (EURUSD/GBPUSD)</option>
+              <option value="10">Gold (XAUUSD)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div>
+            <div style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">TOTAL RISK ($)</div>
+            <div id="riskAmount" style="font-size:1.3rem; font-weight:700; color:var(--bear); font-family:var(--font-mono);">$100.00</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">RECOMMENDED LOT SIZE</div>
+            <div id="calculatedLot" style="font-size:1.3rem; font-weight:700; color:var(--bull); font-family:var(--font-mono);">0.50 Lots</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: BROKER DESK & PARTNERS -->
+    <section id="tab-partners" class="tab-pane">
+      <div class="partner-grid">
+        <!-- XM Global -->
+        <div class="partner-box">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="font-family:var(--font-display); font-size:1.15rem;">XM Global (Forex & Gold)</h3>
+              <span class="mono" style="font-size:0.68rem; background:rgba(255,255,255,0.08); padding:0.2rem 0.5rem; border-radius:4px; color:var(--accent-cyan);">MT4 / MT5</span>
+            </div>
+            <p style="font-size:0.84rem; color:var(--text-dim); margin-top:0.6rem; line-height:1.5;">
+              Ultra-low spreads on Gold (XAUUSD) & EURUSD, zero execution requotes, aur instant local deposit & withdrawal options.
+            </p>
+          </div>
+          <a href="https://www.xmglobal.com/referral?token=euiaFYBdchpNgiCGGQAtIQ" target="_blank" class="btn btn-outline" style="border-color: var(--bull); color: var(--bull); font-size:0.82rem;">
+            📈 Open XM Live Account (Rebates Activated)
+          </a>
+        </div>
+
+        <!-- CoinDCX -->
+        <div class="partner-box">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="font-family:var(--font-display); font-size:1.15rem;">CoinDCX (Crypto Desk)</h3>
+              <span class="mono" style="font-size:0.68rem; background:rgba(245,158,11,0.15); padding:0.2rem 0.5rem; border-radius:4px; color:var(--gold);">₹10L BTC Reward</span>
+            </div>
+            <p style="font-size:0.84rem; color:var(--text-dim); margin-top:0.6rem; line-height:1.5;">
+              Trade Spot or Futures on CoinDCX and win assured Bitcoin rewards worth up to ₹10 Lakhs with high security & deep orderbooks.
+            </p>
+          </div>
+          <a href="https://invite.coindcx.com/46310547" target="_blank" class="btn btn-outline" style="border-color: var(--gold); color: var(--gold); font-size:0.82rem;">
+            🪙 Claim ₹10L BTC Reward on CoinDCX
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: LIVE TRADE JOURNAL -->
+    <section id="tab-journal" class="tab-pane">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <span class="mono" style="font-size:0.78rem; color:var(--text-dim);">CLICK SETUP TO INSPECT ANALYSIS</span>
+        <div style="display:flex; gap:0.35rem;">
+          <button class="btn btn-outline" onclick="filterLogs('all')" style="padding:0.3rem 0.7rem; font-size:0.72rem;">All</button>
+          <button class="btn btn-outline" onclick="filterLogs('win')" style="padding:0.3rem 0.7rem; font-size:0.72rem; border-color:var(--bull); color:var(--bull);">Wins</button>
+          <button class="btn btn-outline" onclick="filterLogs('loss')" style="padding:0.3rem 0.7rem; font-size:0.72rem; border-color:var(--bear); color:var(--bear);">Losses</button>
+        </div>
+      </div>
       
       <div class="journal-grid" id="journalFeed"></div>
     </section>
 
-    <!-- Strategy Framework -->
-    <section id="strategy" style="margin-bottom: 2.5rem;">
-      <div class="section-title">STRATEGY & RISK FRAMEWORK</div>
-      <div class="section-subtitle">Mechanical setup qualification & risk protocols</div>
+    <!-- TAB 5: 10K BLUEPRINT & REVEAL -->
+    <section id="tab-strategy" class="tab-pane">
+      <div class="promo-card">
+        <div class="ribbon">10K REVEAL</div>
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.4rem;">🔒 Proprietary Strategy Blueprint Reveal</h2>
+          <p style="color: var(--text-dim); font-size: 0.88rem; line-height: 1.6;">
+            Hamara complete Order Flow, Asian Range Manipulation, Liquidity Sweeping & FVG entry framework <strong>10,000 Followers</strong> hit hone par community ke liye 100% FREE publish hoga.
+          </p>
+        </div>
+        <div style="margin-top: 1rem;">
+          <div style="display:flex; justify-content:space-between; font-size:0.74rem; font-family:var(--font-mono); margin-bottom:0.3rem;">
+            <span>Community Milestone Progress</span>
+            <span style="color: var(--gold); font-weight:700;">Target: 10,000 Followers</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+          <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-primary" style="font-size:0.84rem;">
+            ⚡ Follow on Instagram to Unlock Strategy
+          </a>
+        </div>
+      </div>
+
       <div class="grid-stack" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <div class="glass-card">
-          <h3>Liquidity Engineering</h3>
-          <p>Identifying liquidity pools and equal highs/lows prior to directional confirmation.</p>
+          <h3 style="color: var(--accent-cyan); font-family: var(--font-display); margin-bottom: 0.4rem;">Liquidity Engineering</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Identifying liquidity pools and equal highs/lows prior to entering directional expansion legs.</p>
         </div>
         <div class="glass-card">
-          <h3>Structure Shift (MSS)</h3>
-          <p>Validating direction with displacement candles breaking key structural points.</p>
-        </div>
-        <div class="glass-card">
-          <h3>Risk Management</h3>
-          <p>Daily max drawdown capped at 2%. Strict 1-2% account exposure per execution.</p>
+          <h3 style="color: var(--gold); font-family: var(--font-display); margin-bottom: 0.4rem;">Market Structure Shifts (MSS)</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Validating bias changes with displacement candles breaking key internal and swing structures.</p>
         </div>
       </div>
     </section>
@@ -842,6 +827,29 @@
   </div>
 
   <script>
+    // Tab Navigation Logic
+    function switchCategory(tabId, el) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      el.classList.add('active');
+    }
+
+    // Lot Size Calculator Logic
+    function calculateLotSize() {
+      const balance = parseFloat(document.getElementById('calcBalance').value) || 0;
+      const risk = parseFloat(document.getElementById('calcRisk').value) || 0;
+      const pips = parseFloat(document.getElementById('calcPips').value) || 1;
+      const pipValue = parseFloat(document.getElementById('calcPair').value) || 10;
+
+      const riskDollar = (balance * (risk / 100));
+      const lotSize = riskDollar / (pips * pipValue);
+
+      document.getElementById('riskAmount').innerText = `$${riskDollar.toFixed(2)}`;
+      document.getElementById('calculatedLot').innerText = `${lotSize.toFixed(2)} Lots`;
+    }
+
+    // Artificial Vector Graphs
     const svgBullGraph = `
       <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -918,7 +926,7 @@
         pnl: "+₹24,500",
         session: "CoinDCX Futures Desk",
         date: "2026-08-12",
-        notes: "4H demand mitigation after sweeping sell-side liquidity into NY session on CoinDCX. Clean reaction and expansion.",
+        notes: "4H demand mitigation after sweeping sell-side liquidity into NY session on CoinDCX. Clean expansion.",
         svg: svgBullGraph
       },
       {
@@ -933,39 +941,48 @@
         pnl: "-₹6,000",
         session: "London Open | CPI Release",
         date: "2026-08-08",
-        notes: "High-impact news spike invalidated fair value gap structure. Fixed 1% risk rule applied, zero emotional retaliation.",
+        notes: "High-impact news spike invalidated fair value gap structure. Fixed 1% risk rule applied strictly.",
         svg: svgBearGraph
       }
     ];
 
-    // Populate Trade Journal
-    const feed = document.getElementById("journalFeed");
-    tradeData.forEach(t => {
-      const isWin = t.outcome === "win";
-      const card = document.createElement("div");
-      card.className = "log-card";
-      card.innerHTML = `
-        <div class="chart-thumb" onclick="openModal('${t.id}')">
-          ${t.svg}
-          <div class="tag-session">${t.session}</div>
-        </div>
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-family:var(--font-display); font-weight:700; font-size:1.05rem;">
-              ${t.pair} <span style="font-size:0.75rem; color:var(--text-subtle);">[${t.direction}]</span>
+    function renderFeed(filter = 'all') {
+      const feed = document.getElementById("journalFeed");
+      feed.innerHTML = '';
+
+      const filtered = tradeData.filter(t => filter === 'all' || t.outcome === filter);
+
+      filtered.forEach(t => {
+        const isWin = t.outcome === "win";
+        const card = document.createElement("div");
+        card.className = "log-card";
+        card.innerHTML = `
+          <div class="chart-thumb" onclick="openModal('${t.id}')">
+            ${t.svg}
+            <div class="tag-session">${t.session}</div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-family:var(--font-display); font-weight:700; font-size:1.05rem;">
+                ${t.pair} <span style="font-size:0.75rem; color:var(--text-subtle);">[${t.direction}]</span>
+              </div>
+              <span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? 'PROFIT' : 'LOSS'}</span>
             </div>
-            <span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${isWin ? 'PROFIT' : 'LOSS'}</span>
+            <div class="stat-matrix">
+              <div><small>R:R</small><span>${t.rr}</span></div>
+              <div><small>P&L</small><span style="color:${isWin ? 'var(--bull)' : 'var(--bear)'}">${t.pnl}</span></div>
+              <div><small>Date</small><span>${t.date}</span></div>
+            </div>
+            <p style="font-size:0.84rem; color:var(--text-dim); line-height:1.5;">${t.notes}</p>
           </div>
-          <div class="stat-matrix">
-            <div><small>R:R</small><span>${t.rr}</span></div>
-            <div><small>P&L</small><span style="color:${isWin ? 'var(--bull)' : 'var(--bear)'}">${t.pnl}</span></div>
-            <div><small>Date</small><span>${t.date}</span></div>
-          </div>
-          <p style="font-size:0.84rem; color:var(--text-dim); line-height:1.5;">${t.notes}</p>
-        </div>
-      `;
-      feed.appendChild(card);
-    });
+        `;
+        feed.appendChild(card);
+      });
+    }
+
+    function filterLogs(type) {
+      renderFeed(type);
+    }
 
     // Modal Handling
     function openModal(id) {
@@ -1011,6 +1028,10 @@
         }
       }
     });
+
+    // Initial render
+    renderFeed();
+    calculateLotSize();
   </script>
 </body>
 </html>
