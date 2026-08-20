@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AAYU // FXOP247 — Institutional Desk & Equity Terminal</title>
-  <meta name="description" content="Aayu Forex Operator — Institutional Execution Engine, Strategy Roadmap & Live Trade Logs.">
+  <title>AAYU // FXOP247 — Institutional Desk, Free EA & Algo Lab</title>
+  <meta name="description" content="Aayu Forex Operator — Free MT5 EA Bot, XM & CoinDCX Trading Desk, Institutional Strategy Roadmap.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,19 +119,32 @@
 
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* 10K Followers Strategy Unlock Banner */
-    .unlock-banner {
+    /* Free EA Launch & 10K Strategy Banner */
+    .hero-banner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .promo-card {
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 16px;
-      padding: 1.75rem;
-      margin-bottom: 2rem;
+      padding: 1.5rem;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .unlock-banner::after {
-      content: "LOCKED BLUEPRINT";
+    .promo-card.ea-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%);
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    .badge-ribbon {
       position: absolute;
       right: -25px;
       top: 18px;
@@ -139,41 +152,44 @@
       color: #000;
       font-family: var(--font-mono);
       font-weight: 800;
-      font-size: 0.65rem;
-      padding: 0.25rem 2.5rem;
+      font-size: 0.62rem;
+      padding: 0.2rem 2.2rem;
       transform: rotate(24deg);
     }
 
-    .unlock-banner h2 {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .promo-card.ea-card .badge-ribbon {
+      background: var(--accent-cyan);
     }
 
-    .unlock-banner p {
+    .promo-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .promo-card p {
       color: var(--text-dim);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      max-width: 820px;
-      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      margin-bottom: 1rem;
     }
 
     .progress-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-family: var(--font-mono);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .progress-track {
-      height: 9px;
+      height: 8px;
       background: rgba(0,0,0,0.5);
       border-radius: 99px;
       border: 1px solid var(--surface-border);
       overflow: hidden;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .progress-fill {
@@ -186,15 +202,17 @@
     .btn-cta {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
       background: #fff;
       color: #000;
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.65rem 1.35rem;
+      font-size: 0.82rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 10px;
       text-decoration: none;
       transition: transform 0.2s, box-shadow 0.2s;
+      align-self: flex-start;
     }
 
     .btn-cta:hover {
@@ -202,7 +220,88 @@
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
     }
 
-    /* Operator Profile & Strategy Framework */
+    /* Partner Brokers & Platforms */
+    .partner-section {
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-headline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .partner-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .partner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .partner-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+
+    .partner-tag {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--accent-cyan);
+    }
+
+    .partner-box p {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .btn-partner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid var(--surface-border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.55rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-partner:hover {
+      background: var(--accent-neon);
+      color: #fff;
+      border-color: var(--accent-neon);
+    }
+
+    /* Strategy & Protocols */
     .info-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -366,10 +465,7 @@
       cursor: pointer;
     }
 
-    .chart-container svg {
-      width: 100%;
-      height: 100%;
-    }
+    .chart-container svg { width: 100%; height: 100%; }
 
     .chart-tag {
       position: absolute;
@@ -509,7 +605,8 @@
 
     .footer-links a:hover { color: var(--accent-neon); }
 
-    @media (max-width: 768px) {
+    @media (max-width: 840px) {
+      .hero-banner-grid { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
       footer { flex-direction: column; text-align: center; }
@@ -527,7 +624,7 @@
         <div class="brand-icon">FX</div>
         <div class="brand-text">
           <h1>AAYU // FXOP247</h1>
-          <p>Institutional Execution Terminal</p>
+          <p>Institutional Execution Terminal & Algo Desk</p>
         </div>
       </div>
       <div class="live-status">
@@ -536,31 +633,95 @@
       </div>
     </header>
 
-    <!-- 10K Strategy Unlock Milestone -->
-    <section class="unlock-banner">
-      <h2>🔒 Proprietary Strategy Blueprint Reveal</h2>
-      <p>
-        Hamara complete Institutional Order Flow, Asian Range Manipulation, Liquidity Sweeps & FVG Entry blueprint <strong>10,000 Followers</strong> hit hone par sabhi ke liye 100% FREE publish hoga.
-      </p>
-      
-      <div class="progress-meta">
-        <span>Milestone Roadmap</span>
-        <span style="color: var(--gold); font-weight: 700;">Target: 10,000 Traders</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill"></div>
+    <!-- Top Hero Promo Grid (Strategy Unlock + Free EA Bot Launch) -->
+    <section class="hero-banner-grid">
+      <!-- 10K Strategy Reveal -->
+      <div class="promo-card">
+        <div class="badge-ribbon">10K REVEAL</div>
+        <div>
+          <h2>🔒 Institutional Strategy Blueprint</h2>
+          <p>Complete Order Flow, Asian Manipulation & Liquidity Sweep framework <strong>10,000 Followers</strong> par 100% FREE publish hoga.</p>
+        </div>
+        <div>
+          <div class="progress-meta">
+            <span>Milestone Progress</span>
+            <span style="color: var(--gold); font-weight: 700;">Target: 10,000</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+          <a href="https://instagram.com" target="_blank" class="btn-cta">
+            ⚡ Follow on Instagram
+          </a>
+        </div>
       </div>
 
-      <a href="https://instagram.com" target="_blank" class="btn-cta">
-        ⚡ Follow on Instagram to Unlock Strategy
-      </a>
+      <!-- Free MT5 EA Launch Alert -->
+      <div class="promo-card ea-card">
+        <div class="badge-ribbon">FREE EA BOT</div>
+        <div>
+          <h2>🤖 Free MT5 Algo EA (Coming Soon)</h2>
+          <p>Hamara proprietary automated <strong>Expert Advisor (EA) for MetaTrader 5</strong> jald launch ho raha hai. Zero fees, fully automated institutional risk execution.</p>
+        </div>
+        <div style="margin-top: auto;">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 0.6rem;">
+            STATUS: MetaTrader 5 Beta Testing
+          </div>
+          <a href="https://t.me" target="_blank" class="btn-cta" style="background: var(--accent-cyan); color: #000;">
+            🚀 Join Telegram for EA Early Access
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official Broker & Crypto Exchange Partner Desk -->
+    <section class="partner-section">
+      <div class="section-headline">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 1.25rem;">Official Execution Partners</h2>
+          <p style="font-size: 0.8rem; color: var(--text-dim);">Ham trading ke liye XM aur CoinDCX ka use karte hain. Register using verified partner links:</p>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan);">VERIFIED REBATES & BONUSES</span>
+      </div>
+
+      <div class="partner-grid">
+        <!-- XM Broker -->
+        <div class="partner-box">
+          <div>
+            <div class="partner-header">
+              <h3>XM Global (Forex & Gold)</h3>
+              <span class="partner-tag">MetaTrader 4 / 5</span>
+            </div>
+            <p style="margin-top: 0.5rem;">Ultra-low spreads on Gold (XAUUSD) & EURUSD, ultra-fast execution, zero requotes, and instant local deposits/withdrawals.</p>
+          </div>
+          <!-- Edit href link with your XM referral URL -->
+          <a href="https://www.xm.com" target="_blank" class="btn-partner">
+            📈 Open XM Live Account (Partner Rebates)
+          </a>
+        </div>
+
+        <!-- CoinDCX Exchange -->
+        <div class="partner-box">
+          <div>
+            <div class="partner-header">
+              <h3>CoinDCX (Crypto Desk)</h3>
+              <span class="partner-tag">Crypto Spot & Futures</span>
+            </div>
+            <p style="margin-top: 0.5rem;">India's most secure crypto exchange for Bitcoin, Ethereum, and Altcoins with high liquidity and advanced derivative tools.</p>
+          </div>
+          <!-- Edit href link with your CoinDCX referral URL -->
+          <a href="https://coindcx.com" target="_blank" class="btn-partner">
+            🪙 Trade on CoinDCX (Refer & Earn Bonus)
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Detailed Strategy Profile & Rules -->
     <section class="info-grid">
       <div class="glass-box">
         <div class="box-tag">// CORE METHODOLOGY</div>
-        <h3>Daily Bias & Liquidity Engine</h3>
+        <h3>Daily Bias & Algorithmic Flow</h3>
         <p>
           Price moves from one liquidity pool to another. We capitalize on London & New York open manipulation (Judas Swings), algorithmic Fair Value Gaps (FVG), and Market Structure Shifts (MSS) targeting external draw on liquidity.
         </p>
@@ -572,7 +733,7 @@
         <ul class="rule-items">
           <li>Daily Drawdown Hard Cap: 2.0%</li>
           <li>Minimum Risk-to-Reward: $\ge$ 1 : 2.5</li>
-          <li>Strict High-Impact News Avoidance</li>
+          <li>MT5 Automated Algo Execution Integration (Coming Soon)</li>
           <li>Zero Revenge / Tilt Execution</li>
         </ul>
       </div>
@@ -641,7 +802,6 @@
   </div>
 
   <script>
-    // Artificial Vector Graphs (Candlesticks + FVG Zones)
     const svgBullGraph = `
       <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -650,30 +810,17 @@
             <stop offset="1%" stop-color="#10b981" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <!-- Grid lines -->
         <line x1="0" y1="45" x2="400" y2="45" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
         <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
         <line x1="0" y1="135" x2="400" y2="135" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        
-        <!-- FVG Imbalance Box -->
         <rect x="140" y="85" width="120" height="35" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.4)" stroke-dasharray="3,3"/>
         <text x="145" y="105" fill="#818cf8" font-size="10" font-family="monospace">15M Bullish FVG</text>
-
-        <!-- Liquidity Sweep Line -->
         <path d="M 20 140 L 80 140 L 110 155 L 140 90 L 190 95 L 240 60 L 310 50 L 380 25" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M 20 140 L 80 140 L 110 155 L 140 90 L 190 95 L 240 60 L 310 50 L 380 25 L 380 180 L 20 180 Z" fill="url(#bullGrad)"/>
-
-        <!-- Candlestick Wicks & Bodies -->
         <line x1="110" y1="120" x2="110" y2="160" stroke="#f43f5e" stroke-width="1.5"/>
         <rect x="105" y="130" width="10" height="20" fill="#f43f5e" rx="2"/>
-
         <line x1="140" y1="75" x2="140" y2="110" stroke="#10b981" stroke-width="1.5"/>
         <rect x="135" y="85" width="10" height="20" fill="#10b981" rx="2"/>
-
-        <line x1="240" y1="45" x2="240" y2="80" stroke="#10b981" stroke-width="1.5"/>
-        <rect x="235" y="55" width="10" height="20" fill="#10b981" rx="2"/>
-        
-        <!-- Execution Entry Marker -->
         <circle cx="140" cy="90" r="4" fill="#6366f1"/>
         <text x="150" y="82" fill="#fff" font-size="9" font-family="monospace">ENTRY (Long)</text>
       </svg>
@@ -690,22 +837,14 @@
         <line x1="0" y1="45" x2="400" y2="45" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
         <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
         <line x1="0" y1="135" x2="400" y2="135" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        
-        <!-- Order Block Zone -->
         <rect x="130" y="30" width="110" height="30" fill="rgba(244, 63, 94, 0.15)" stroke="rgba(244, 63, 94, 0.4)" stroke-dasharray="3,3"/>
         <text x="135" y="50" fill="#fb7185" font-size="10" font-family="monospace">4H Bearish OB</text>
-
-        <!-- Judas Swing Trace -->
         <path d="M 20 70 L 70 65 L 120 25 L 170 45 L 220 110 L 290 120 L 380 160" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M 20 70 L 70 65 L 120 25 L 170 45 L 220 110 L 290 120 L 380 160 L 380 180 L 20 180 Z" fill="url(#bearGrad)"/>
-
-        <!-- Candlesticks -->
         <line x1="120" y1="15" x2="120" y2="55" stroke="#10b981" stroke-width="1.5"/>
         <rect x="115" y="25" width="10" height="20" fill="#10b981" rx="2"/>
-
         <line x1="170" y1="35" x2="170" y2="85" stroke="#f43f5e" stroke-width="1.5"/>
         <rect x="165" y="45" width="10" height="25" fill="#f43f5e" rx="2"/>
-
         <circle cx="170" cy="45" r="4" fill="#f59e0b"/>
         <text x="180" y="40" fill="#fff" font-size="9" font-family="monospace">SHORT ENTRY</text>
       </svg>
@@ -721,7 +860,7 @@
         pnl: "+$1,450",
         session: "NY Session | 15M FVG",
         date: "20 Aug 2026",
-        notes: "Asian lows swept during London session. Reclaimed structure with a sharp 5M Market Structure Shift (MSS), filled the 15M FVG at discount, targeted previous day highs.",
+        notes: "Asian lows swept during London session. Reclaimed structure with a sharp 5M Market Structure Shift (MSS), filled the 15M FVG at discount, targeted previous day highs on XM MetaTrader 5.",
         svg: svgBullGraph
       },
       {
@@ -738,15 +877,15 @@
       },
       {
         id: "TRD-03",
-        pair: "GBPUSD",
+        pair: "BTCUSDT",
         direction: "BUY",
-        outcome: "loss",
-        rr: "-1.0R",
-        pnl: "-$320",
-        session: "NY Open | CPI Volatility",
+        outcome: "win",
+        rr: "+3.2R",
+        pnl: "+$1,120",
+        session: "Weekend Volatility | CoinDCX",
         date: "18 Aug 2026",
-        notes: "News whip hit Stop Loss before expanding into target direction. Risk strictly controlled at 1%, zero psychological revenge.",
-        svg: svgBearGraph
+        notes: "Liquidity grab below $58k psychological support on CoinDCX. Strong bounce off higher time frame demand block.",
+        svg: svgBullGraph
       }
     ];
 
