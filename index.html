@@ -2,875 +2,626 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AAYU Forex Operator | Liquidity & Price Action Trader</title>
-  <meta name="description" content="AAYU Forex Operator — trading journal, XAUUSD, BTCUSD, Forex analysis, liquidity, price action and disciplined execution.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FXOP247 | Institutional Forex Terminal</title>
+  <meta name="description" content="Institutional Forex Trading Journal, Risk Metrics & Trade Logs.">
   
-  <!-- Open Graph -->
-  <meta property="og:title" content="AAYU Forex Operator | Liquidity & Price Action Trader">
-  <meta property="og:description" content="Small Trades. Big Moves. Liquidity • Price Action • Execution.">
-  <meta property="og:url" content="https://fxop247.dpdns.org">
-  <meta property="og:type" content="website">
-
-  <!-- PWA Setup -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0a0b0d">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-base: #0a0b0d;
-      --bg-surface: #12151a;
-      --bg-card: rgba(18, 21, 26, 0.85);
+      --bg-base: #0a0d14;
+      --bg-surface: #111622;
+      --bg-elevated: #182032;
       --border-color: rgba(255, 255, 255, 0.08);
-      --border-active: rgba(34, 197, 94, 0.4);
-      --green: #22c55e;
-      --green-glow: rgba(34, 197, 94, 0.12);
-      --red: #ef4444;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --mono-font: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      --border-focus: rgba(99, 102, 241, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-bull: #10b981;
+      --accent-bull-glow: rgba(16, 185, 129, 0.15);
+      --accent-bear: #f43f5e;
+      --accent-bear-glow: rgba(244, 63, 94, 0.15);
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
+    body {
       background-color: var(--bg-base);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      min-height: 100vh;
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
     }
 
-    .mono { font-family: var(--mono-font); }
-
-    /* Header & Navigation */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(10, 11, 13, 0.9);
-      border-bottom: 1px solid var(--border-color);
-      width: 100%;
-    }
-
-    .nav-container {
+    /* Container */
+    .app-container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 1.5rem 1rem 3rem 1rem;
+    }
+
+    /* Top Navigation Header */
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.875rem 1rem;
+      padding: 1rem 1.5rem;
+      background: rgba(17, 22, 34, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      margin-bottom: 2rem;
     }
 
     .brand {
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 0.35rem;
-    }
-    .brand span { color: var(--green); }
-
-    /* Desktop Navigation */
-    .desktop-nav {
-      display: none;
+      gap: 0.75rem;
     }
 
-    .desktop-nav ul {
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-indigo), var(--accent-blue));
+      border-radius: 10px;
       display: flex;
-      list-style: none;
-      gap: 1.25rem;
-    }
-
-    .desktop-nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-
-    .desktop-nav a:hover { color: var(--green); }
-
-    /* Mobile Hamburger */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 5px;
-      width: 44px;
-      height: 44px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      z-index: 110;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background-color: var(--text-main);
-      transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      border-radius: 2px;
-    }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* Mobile Drawer */
-    .mobile-drawer {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: min(80vw, 320px);
-      height: 100vh;
-      height: 100dvh;
-      background: var(--bg-surface);
-      border-left: 1px solid var(--border-color);
-      z-index: 105;
-      display: flex;
-      flex-direction: column;
-      padding: 5rem 1.5rem 2rem;
-      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-    }
-
-    .mobile-drawer.open { right: 0; }
-
-    .mobile-drawer ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .mobile-drawer a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: 600;
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    .mobile-drawer a:hover { color: var(--green); }
-
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 102;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .drawer-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Layout & Sections */
-    section {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: clamp(2.5rem, 6vw, 4.5rem) 1rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.2rem, 4vw, 1.6rem);
       font-weight: 800;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
     }
 
-    .section-subtitle {
+    .brand-text h1 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      background: linear-gradient(to right, #fff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.72rem;
       color: var(--text-muted);
-      font-size: 0.825rem;
-      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
     }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: clamp(3rem, 8vw, 5.5rem) 1rem 2.5rem;
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .hero-tag {
-      display: inline-block;
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent-bull-glow);
+      border: 1px solid rgba(16, 185, 129, 0.3);
       padding: 0.3rem 0.75rem;
-      background: var(--green-glow);
-      border: 1px solid var(--green);
-      color: var(--green);
       border-radius: 9999px;
-      font-size: 0.7rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 7vw, 4rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero .tagline {
-      font-size: clamp(1.1rem, 3.5vw, 1.4rem);
-      color: var(--text-main);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtext {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      max-width: 500px;
-      margin: 0 auto 1.75rem;
-    }
-
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 380px;
-      margin: 0 auto;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 0.75rem 1.25rem;
-      border-radius: 6px;
+      font-size: 0.75rem;
       font-weight: 600;
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: 0.2s ease;
-      cursor: pointer;
-      width: 100%;
+      color: var(--accent-bull);
+      font-family: var(--font-mono);
     }
 
-    .btn-primary {
-      background: var(--green);
-      color: #000;
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--accent-bull);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-bull);
+      animation: pulse 2s infinite;
     }
-    .btn-primary:hover { opacity: 0.9; }
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
-    .btn-outline:hover { border-color: var(--green); }
 
-    /* Cards Grid */
-    .grid-stack {
+    /* Metric Grid Cards */
+    .metrics-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.25rem;
-      transition: border-color 0.2s;
-    }
-    .card:hover { border-color: var(--border-active); }
-
-    .card h3 {
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-    }
-    .card p {
-      font-size: 0.825rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Dashboard Metrics */
-    .metrics-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .metric-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      padding: 0.875rem;
-      border-radius: 6px;
+      border-radius: 14px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .metric-label {
-      font-size: 0.675rem;
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-focus);
+    }
+
+    .metric-title {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .metric-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      letter-spacing: -0.03em;
+    }
+
+    .metric-value.bull { color: var(--accent-bull); }
+    .metric-value.bear { color: var(--accent-bear); }
+
+    .metric-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Filter Toolbar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      background: var(--bg-surface);
+      padding: 0.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      gap: 0.25rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+
+    /* Trading Journal Feed Grid */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .trade-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+    }
+
+    .trade-card:hover {
+      border-color: var(--border-focus);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-chart-preview {
+      height: 180px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card-chart-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .trade-card:hover .card-chart-preview img {
+      transform: scale(1.04);
+    }
+
+    .chart-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 0.75rem;
+    }
+
+    .trade-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pair-badge {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    .tag-outcome {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+
+    .tag-outcome.win {
+      background: var(--accent-bull-glow);
+      color: var(--accent-bull);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .tag-outcome.loss {
+      background: var(--accent-bear-glow);
+      color: var(--accent-bear);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .trade-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--bg-elevated);
+      padding: 0.6rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .stat-box small {
+      display: block;
+      font-size: 0.68rem;
       color: var(--text-muted);
       text-transform: uppercase;
     }
 
-    .metric-val {
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+    .stat-box span {
+      font-size: 0.85rem;
       font-weight: 700;
-      margin-top: 0.2rem;
+      font-family: var(--font-mono);
     }
 
-    .chart-container {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      width: 100%;
-      height: 220px;
+    .trade-notes {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
     }
 
-    /* Responsive Trading Journal */
-    .journal-mobile-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .journal-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      cursor: pointer;
-    }
-
-    .journal-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .journal-grid-details {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      background: rgba(0,0,0,0.25);
-      padding: 0.5rem;
-      border-radius: 4px;
-      margin-top: 0.5rem;
-    }
-
-    .journal-table-wrapper {
-      display: none;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-    .badge-win { background: rgba(34, 197, 94, 0.15); color: var(--green); }
-    .badge-loss { background: rgba(239, 68, 68, 0.15); color: var(--red); }
-    .badge-long { color: var(--green); }
-    .badge-short { color: var(--red); }
-
-    /* Modal */
+    /* Modal for Full Image/Details */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
       z-index: 1000;
+      padding: 1.5rem;
       align-items: center;
       justify-content: center;
-      padding: 1rem;
     }
-    .modal.open { display: flex; }
 
-    .modal-content {
+    .modal.active { display: flex; }
+
+    .modal-dialog {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
+      border-radius: 16px;
+      max-width: 900px;
       width: 100%;
-      max-width: 520px;
       max-height: 90vh;
       overflow-y: auto;
-      border-radius: 8px;
-      padding: 1.25rem;
+      padding: 1.5rem;
       position: relative;
     }
 
-    .close-btn {
+    .modal-close {
       position: absolute;
-      top: 0.75rem;
-      right: 0.75rem;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 1.5rem;
-      line-height: 1;
+      top: 1rem;
+      right: 1rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
       width: 32px;
       height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border: 1px solid var(--border-color);
     }
 
     /* Footer */
     footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
       border-top: 1px solid var(--border-color);
-      padding: 2.5rem 1rem;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      font-size: 0.75rem;
-    }
-    .disclaimer {
-      max-width: 600px;
-      margin: 0.75rem auto;
-      font-size: 0.7rem;
-      opacity: 0.75;
-      line-height: 1.4;
     }
 
-    /* Responsive Breakpoints */
-    @media (min-width: 480px) {
-      .btn-group {
-        flex-direction: row;
-      }
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 1rem;
+      transition: color 0.2s;
     }
 
-    @media (min-width: 768px) {
-      .desktop-nav { display: block; }
-      .hamburger { display: none; }
-      
-      .grid-stack.mindset-grid { grid-template-columns: repeat(2, 1fr); }
-      .grid-stack.markets-grid { grid-template-columns: repeat(3, 1fr); }
-      .grid-stack.strategy-grid { grid-template-columns: repeat(3, 1fr); }
-      .metrics-container { grid-template-columns: repeat(4, 1fr); }
-      
-      .chart-container { height: 280px; }
-
-      /* Table View on Tablet/Desktop */
-      .journal-mobile-list { display: none; }
-      .journal-table-wrapper {
-        display: block;
-        overflow-x: auto;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        background: var(--bg-surface);
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: 0.8rem;
-      }
-      th, td {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--border-color);
-      }
-      th {
-        background: rgba(0,0,0,0.25);
-        color: var(--text-muted);
-        text-transform: uppercase;
-        font-size: 0.7rem;
-      }
-      tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+    .footer-links a:hover {
+      color: var(--accent-blue);
     }
 
-    @media (min-width: 1024px) {
-      .grid-stack.mindset-grid { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 640px) {
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links a { margin: 0 0.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="nav-container">
-      <a href="#" class="brand">
-        <span>AAYU <span>|</span> FOREX OPERATOR</span>
-      </a>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">FX</div>
+        <div class="brand-text">
+          <h1>FXOP247 // Terminal</h1>
+          <p>Execution Engine & Trade Journal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span>MARKET LIVE</span>
+        </div>
+      </div>
+    </header>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="desktop-nav">
-        <ul>
-          <li><a href="#mindset">MINDSET</a></li>
-          <li><a href="#markets">MARKETS</a></li>
-          <li><a href="#journal">JOURNAL</a></li>
-          <li><a href="#performance">PERFORMANCE</a></li>
-          <li><a href="#strategy">STRATEGY</a></li>
-        </ul>
-      </nav>
+    <!-- Key Metrics Grid -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-title">Win Rate <span>🎯</span></div>
+        <div class="metric-value bull">74.2%</div>
+        <div class="metric-subtitle">Last 30 Sessions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Profit Factor <span>⚡</span></div>
+        <div class="metric-value">2.84</div>
+        <div class="metric-subtitle">Expected Value Positive</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Avg Risk/Reward <span>⚖️</span></div>
+        <div class="metric-value">1 : 3.2</div>
+        <div class="metric-subtitle">Strict Risk Protocol</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Main Pairs <span>🌐</span></div>
+        <div class="metric-value" style="font-size: 1.25rem; color: var(--accent-blue);">EURUSD | XAUUSD</div>
+        <div class="metric-subtitle">NY / London Sessions</div>
+      </div>
+    </section>
 
-      <!-- Hamburger Button -->
-      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+    <!-- Toolbar & Filter -->
+    <div class="toolbar">
+      <div class="filter-tabs">
+        <button class="filter-btn active" onclick="filterTrades('all')">All Logs</button>
+        <button class="filter-btn" onclick="filterTrades('win')">Wins</button>
+        <button class="filter-btn" onclick="filterTrades('loss')">Losses</button>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
+        Showing Verified Institutional Logs
+      </div>
     </div>
-  </header>
 
-  <!-- Mobile Drawer -->
-  <div class="drawer-overlay" id="drawerOverlay"></div>
-  <aside class="mobile-drawer" id="mobileDrawer">
-    <ul>
-      <li><a href="#mindset" class="drawer-link">Mindset</a></li>
-      <li><a href="#markets" class="drawer-link">Markets</a></li>
-      <li><a href="#journal" class="drawer-link">Trading Journal</a></li>
-      <li><a href="#performance" class="drawer-link">Performance</a></li>
-      <li><a href="#strategy" class="drawer-link">Strategy</a></li>
-      <li><a href="https://instagram.com/fxop247" target="_blank" class="drawer-link" style="color: var(--green);">Instagram (@fxop247)</a></li>
-    </ul>
-  </aside>
+    <!-- Trade Cards Grid -->
+    <main class="journal-grid" id="journalFeed">
+      <!-- Cards injected by JavaScript -->
+    </main>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-tag mono">@fxop247</div>
-      <h1>AAYU<br><span style="color: var(--text-muted); font-weight:700;">FOREX OPERATOR</span></h1>
-      <div class="tagline">«Small Trades. Big Moves.»</div>
-      <p class="subtext">Liquidity • Price Action • Execution. Real-time setup logs and institutional technical framework.</p>
-      <div class="btn-group">
-        <a href="#journal" class="btn btn-primary">View Journal</a>
-        <a href="https://instagram.com/fxop247" target="_blank" class="btn btn-outline">Instagram</a>
+    <!-- Footer -->
+    <footer>
+      <div>&copy; 2026 FXOP247. All Institutional Rights Reserved.</div>
+      <div class="footer-links">
+        <a href="mailto:contact@fxop247.dpdns.org">✉️ contact@fxop247.dpdns.org</a>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://t.me" target="_blank">Telegram</a>
       </div>
-    </section>
+    </footer>
 
-    <!-- The Operator Mindset -->
-    <section id="mindset">
-      <div class="section-title">THE OPERATOR MINDSET</div>
-      <div class="section-subtitle">Execution principles governing every trade setup</div>
-      <div class="grid-stack mindset-grid">
-        <div class="card">
-          <h3 class="mono">01. Liquidity</h3>
-          <p>Identifying institutional order clusters and resting market stops before anticipating directional continuation.</p>
-        </div>
-        <div class="card">
-          <h3 class="mono">02. Price Action</h3>
-          <p>Reading real market structure and clean displacement rather than relying on lagging indicators.</p>
-        </div>
-        <div class="card">
-          <h3 class="mono">03. Execution</h3>
-          <p>Strict patience over impulse. Taking action only when pre-defined setup parameters are fully confirmed.</p>
-        </div>
-        <div class="card">
-          <h3 class="mono">04. Discipline</h3>
-          <p>Systematic risk management over emotional bias. Risk is defined before entry is clicked.</p>
-        </div>
-      </div>
-    </section>
+  </div>
 
-    <!-- Markets -->
-    <section id="markets">
-      <div class="section-title">PRIMARY MARKETS</div>
-      <div class="section-subtitle">Core instruments traded using order flow models</div>
-      <div class="grid-stack markets-grid">
-        <div class="card">
-          <h3 class="mono">XAUUSD</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">GOLD / US DOLLAR</p>
-          <p>Session liquidity sweeps and London/NY momentum expansions.</p>
-        </div>
-        <div class="card">
-          <h3 class="mono">BTCUSD</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">BITCOIN / US DOLLAR</p>
-          <p>Higher timeframe structural shifts and swing liquidity distributions.</p>
-        </div>
-        <div class="card">
-          <h3 class="mono">FOREX</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">EURUSD / GBPUSD</p>
-          <p>Displacement models aligned with macroeconomic framework direction.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Performance Dashboard -->
-    <section id="performance">
-      <div class="section-title">PERFORMANCE DASHBOARD</div>
-      <div class="section-subtitle">Documented execution metrics and account growth</div>
-      
-      <div class="metrics-container mono">
-        <div class="metric-card">
-          <div class="metric-label">Win Rate</div>
-          <div class="metric-val" style="color: var(--green);">68.4%</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Avg R:R</div>
-          <div class="metric-val">1:2.8</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Total Trades</div>
-          <div class="metric-val">42</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Profit Factor</div>
-          <div class="metric-val">2.31</div>
-        </div>
-      </div>
-
-      <div class="chart-container">
-        <canvas id="equityChart"></canvas>
-      </div>
-    </section>
-
-    <!-- Trading Journal -->
-    <section id="journal">
-      <div class="section-title">TRADING JOURNAL</div>
-      <div class="section-subtitle">Real-time log of verified execution setups (Click to view breakdown)</div>
-      
-      <!-- Mobile Card List View -->
-      <div class="journal-mobile-list mono" id="journalMobileList"></div>
-
-      <!-- Desktop/Tablet Table View -->
-      <div class="journal-table-wrapper mono">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Asset</th>
-              <th>Side</th>
-              <th>Entry</th>
-              <th>SL</th>
-              <th>TP</th>
-              <th>R:R</th>
-              <th>P&L</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="journalTableBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Strategy Section -->
-    <section id="strategy">
-      <div class="section-title">STRATEGY & FRAMEWORK</div>
-      <div class="section-subtitle">Mechanical setup qualification</div>
-      <div class="grid-stack strategy-grid">
-        <div class="card">
-          <h3>Liquidity Engineering</h3>
-          <p>Identifying liquidity pools and equal highs/lows prior to directional confirmation.</p>
-        </div>
-        <div class="card">
-          <h3>Structure Shift</h3>
-          <p>Validating direction with displacement candles breaking key structural points.</p>
-        </div>
-        <div class="card">
-          <h3>Risk Management</h3>
-          <p>Fixed 1-2% account exposure. Stops strictly placed at structural invalidation levels.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Trade Detail Modal -->
-  <div id="tradeModal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">×</button>
-      <h3 id="modalTitle" class="mono" style="margin-bottom: 0.5rem; font-size:1.05rem;"></h3>
-      <div id="modalDetails" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; line-height: 1.7;"></div>
+  <!-- Interactive Modal for Charts -->
+  <div class="modal" id="chartModal" onclick="closeModal(event)">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle" style="font-size: 1.2rem; font-weight: 800;"></h2>
+      <p id="modalSession" style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);"></p>
+      <img id="modalImg" class="modal-img" src="" alt="Setup Chart">
+      <p id="modalNotes" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;"></p>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="mono" style="color: var(--text-main); font-weight:700; margin-bottom: 0.25rem;">AAYU | FOREX OPERATOR</div>
-    <p>«Small Trades. Big Moves.»</p>
-    <p class="disclaimer">
-      Trading involves substantial risk. Past performance does not guarantee future results. This website is for educational and informational purposes only and does not constitute financial advice.
-    </p>
-    <p style="margin-top: 1rem; opacity: 0.6;">© 2026 AAYU Forex Operator. All rights reserved.</p>
-  </footer>
-
   <script>
-    // Trade Data List with Screenshot paths
+    // Trading Logs Data (Edit here to add/modify trades)
     const tradeData = [
       {
-        date: "2026-08-15",
-        asset: "XAUUSD",
-        direction: "SHORT",
-        entry: "2410.50",
-        sl: "2415.00",
-        tp: "2395.00",
-        rr: "1:3.4",
-        pnl: "+₹18,200",
-        result: "PROFIT",
-        screenshot: "assets/screenshots/xauusd-trade1.png",
-        reason: "London session high sweep followed by aggressive M5 displacement lower."
+        id: "TRD-8941",
+        pair: "XAUUSD (Gold)",
+        direction: "BUY",
+        outcome: "win",
+        rr: "+3.8R",
+        pnl: "+$1,450",
+        session: "NY Session | 15M FVG",
+        date: "20 Aug 2026",
+        notes: "Sweep of Asian Lows followed by high-momentum MSS on 5M. Clean liquidity retest inside the discount FVG.",
+        chartUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80"
       },
       {
-        date: "2026-08-12",
-        asset: "BTCUSD",
-        direction: "LONG",
-        entry: "58,400",
-        sl: "57,800",
-        tp: "60,200",
-        rr: "1:3.0",
-        pnl: "+₹24,500",
-        result: "PROFIT",
-        screenshot: "assets/screenshots/btcusd-trade1.png",
-        reason: "4H demand mitigation after sweeping sell-side liquidity into NY session."
+        id: "TRD-8938",
+        pair: "EURUSD",
+        direction: "SELL",
+        outcome: "win",
+        rr: "+2.5R",
+        pnl: "+$890",
+        session: "London Open | Judas Swing",
+        date: "19 Aug 2026",
+        notes: "London manipulation above previous day high into 4H Order Block. Target hit at London session equilibrium.",
+        chartUrl: "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&auto=format&fit=crop&q=80"
       },
       {
-        date: "2026-08-08",
-        asset: "EURUSD",
-        direction: "SHORT",
-        entry: "1.0920",
-        sl: "1.0940",
-        tp: "1.0860",
-        rr: "1:3.0",
-        pnl: "-₹6,000",
-        result: "LOSS",
-        screenshot: "",
-        reason: "High impact news spike invalidated fair value gap structure."
+        id: "TRD-8932",
+        pair: "GBPUSD",
+        direction: "BUY",
+        outcome: "loss",
+        rr: "-1.0R",
+        pnl: "-$320",
+        session: "NY Open | CPI Volatility",
+        date: "18 Aug 2026",
+        notes: "Stop loss tagged during high-impact news whip. Strategy rules executed properly without emotional revenge.",
+        chartUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80"
       }
     ];
 
-    // Populate Mobile Journal Cards & Desktop Table
-    const mobileContainer = document.getElementById("journalMobileList");
-    const tableBody = document.getElementById("journalTableBody");
+    function renderFeed(filter = 'all') {
+      const feed = document.getElementById('journalFeed');
+      feed.innerHTML = '';
 
-    tradeData.forEach((t, index) => {
-      const isWin = t.result === "PROFIT";
+      const filtered = tradeData.filter(t => filter === 'all' || t.outcome === filter);
 
-      // Mobile Card HTML
-      const card = document.createElement("div");
-      card.className = "journal-card";
-      card.onclick = () => openModal(index);
-      card.innerHTML = `
-        <div class="journal-card-header">
-          <div>
-            <strong>${t.asset}</strong> 
-            <span class="${t.direction === 'LONG' ? 'badge-long' : 'badge-short'}" style="font-size:0.75rem; margin-left:0.25rem;">${t.direction}</span>
+      filtered.forEach(trade => {
+        const card = document.createElement('div');
+        card.className = 'trade-card';
+        card.innerHTML = `
+          <div class="card-chart-preview" onclick="openModal('${trade.id}')">
+            <img src="${trade.chartUrl}" alt="${trade.pair} Chart" loading="lazy">
+            <div class="chart-badge">${trade.session}</div>
           </div>
-          <span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${t.result}</span>
-        </div>
-        <div style="font-size:0.7rem; color:var(--text-muted);">${t.date}</div>
-        <div class="journal-grid-details">
-          <div><span style="color:var(--text-muted);">Entry:</span> ${t.entry}</div>
-          <div><span style="color:var(--text-muted);">R:R:</span> ${t.rr}</div>
-          <div><span style="color:var(--text-muted);">P&L:</span> <span style="color:${isWin ? 'var(--green)' : 'var(--red)'}">${t.pnl}</span></div>
-        </div>
-      `;
-      mobileContainer.appendChild(card);
-
-      // Desktop Table Row HTML
-      const tr = document.createElement("tr");
-      tr.onclick = () => openModal(index);
-      tr.innerHTML = `
-        <td>${t.date}</td>
-        <td><strong>${t.asset}</strong></td>
-        <td class="${t.direction === 'LONG' ? 'badge-long' : 'badge-short'}">${t.direction}</td>
-        <td>${t.entry}</td>
-        <td>${t.sl}</td>
-        <td>${t.tp}</td>
-        <td>${t.rr}</td>
-        <td style="color:${isWin ? 'var(--green)' : 'var(--red)'}">${t.pnl}</td>
-        <td><span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${t.result}</span></td>
-      `;
-      tableBody.appendChild(tr);
-    });
-
-    // Mobile Navigation Drawer Toggle
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const mobileDrawer = document.getElementById("mobileDrawer");
-    const drawerOverlay = document.getElementById("drawerOverlay");
-    const drawerLinks = document.querySelectorAll(".drawer-link");
-
-    function toggleMenu() {
-      hamburgerBtn.classList.toggle("open");
-      mobileDrawer.classList.toggle("open");
-      drawerOverlay.classList.toggle("open");
+          <div class="card-content">
+            <div class="trade-header">
+              <div class="pair-badge">${trade.pair} <span style="font-size:0.75rem; color: var(--text-muted);">(${trade.direction})</span></div>
+              <span class="tag-outcome ${trade.outcome}">${trade.outcome}</span>
+            </div>
+            <div class="trade-stats">
+              <div class="stat-box">
+                <small>Return</small>
+                <span class="${trade.outcome === 'win' ? 'bull' : 'bear'}">${trade.rr}</span>
+              </div>
+              <div class="stat-box">
+                <small>PnL</small>
+                <span>${trade.pnl}</span>
+              </div>
+              <div class="stat-box">
+                <small>Date</small>
+                <span>${trade.date}</span>
+              </div>
+            </div>
+            <p class="trade-notes">${trade.notes}</p>
+          </div>
+        `;
+        feed.appendChild(card);
+      });
     }
 
-    function closeMenu() {
-      hamburgerBtn.classList.remove("open");
-      mobileDrawer.classList.remove("open");
-      drawerOverlay.classList.remove("open");
+    function filterTrades(type) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderFeed(type);
     }
 
-    hamburgerBtn.addEventListener("click", toggleMenu);
-    drawerOverlay.addEventListener("click", closeMenu);
-    drawerLinks.forEach(link => link.addEventListener("click", closeMenu));
-
-    // Modal Logic with Dynamic Image Handling
-    function openModal(index) {
-      const t = tradeData[index];
-      document.getElementById("modalTitle").innerText = `${t.asset} • ${t.direction}`;
-      
-      const imageHtml = t.screenshot 
-        ? `<div style="margin-top: 1rem;">
-             <strong style="color:var(--text-main); font-size:0.75rem; text-transform:uppercase;">Setup Analysis:</strong>
-             <img src="${t.screenshot}" alt="${t.asset} Analysis" style="width: 100%; max-height: 240px; object-fit: contain; background: #000; border-radius: 6px; border: 1px solid var(--border-color); margin-top: 0.4rem; display: block;">
-           </div>`
-        : '';
-
-      document.getElementById("modalDetails").innerHTML = `
-        <p><strong>Date:</strong> ${t.date}</p>
-        <p><strong>Execution Levels:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}</p>
-        <p><strong>Outcome:</strong> <span style="color:${t.result === 'PROFIT' ? 'var(--green)' : 'var(--red)'}">${t.result} (${t.pnl})</span></p>
-        <p><strong>Risk / Reward:</strong> ${t.rr}</p>
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.75rem 0;">
-        <p><strong>Technical Thesis:</strong> ${t.reason}</p>
-        ${imageHtml}
-      `;
-      document.getElementById("tradeModal").classList.add("open");
+    function openModal(id) {
+      const trade = tradeData.find(t => t.id === id);
+      if(!trade) return;
+      document.getElementById('modalTitle').innerText = `${trade.pair} — ${trade.direction} (${trade.rr})`;
+      document.getElementById('modalSession').innerText = `${trade.session} | ${trade.date}`;
+      document.getElementById('modalImg').src = trade.chartUrl;
+      document.getElementById('modalNotes').innerText = trade.notes;
+      document.getElementById('chartModal').classList.add('active');
     }
 
     function closeModal() {
-      document.getElementById("tradeModal").classList.remove("open");
+      document.getElementById('chartModal').classList.remove('active');
     }
 
-    // Chart.js Equity Curve
-    const ctx = document.getElementById('equityChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-        datasets: [{
-          data: [10000, 10800, 10400, 12200, 13100, 14950, 14200, 16800],
-          borderColor: '#22c55e',
-          backgroundColor: 'rgba(34, 197, 94, 0.04)',
-          borderWidth: 2,
-          pointRadius: 2,
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9ca3af', font: { size: 10 } } },
-          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
-        }
-      }
-    });
+    // Initial render
+    renderFeed();
   </script>
 </body>
 </html>
