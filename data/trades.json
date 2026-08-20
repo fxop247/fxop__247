@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-08-15",
+    "asset": "XAUUSD",
+    "direction": "SHORT",
+    "entry": "2410.50",
+    "sl": "2415.00",
+    "tp": "2395.00",
+    "rr": "1:3.4",
+    "pnl": "+₹18,200",
+    "result": "PROFIT",
+    "reason": "London session liquidity sweep followed by clean M5 displacement."
+  }
+]
