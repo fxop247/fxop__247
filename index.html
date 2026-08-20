@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FXOP247 | Institutional Forex Terminal</title>
-  <meta name="description" content="Institutional Forex Trading Journal, Risk Metrics & Trade Logs.">
+  <title>AAYU // FXOP247 - Institutional Execution Terminal</title>
+  <meta name="description" content="Aayu Forex Operator — Institutional Execution, Daily Bias, Risk Protocol & Trade Journal.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,9 +12,9 @@
 
   <style>
     :root {
-      --bg-base: #0a0d14;
-      --bg-surface: #111622;
-      --bg-elevated: #182032;
+      --bg-base: #090d16;
+      --bg-surface: #0f1523;
+      --bg-elevated: #161e31;
       --border-color: rgba(255, 255, 255, 0.08);
       --border-focus: rgba(99, 102, 241, 0.4);
       --text-primary: #f8fafc;
@@ -26,15 +26,13 @@
       --accent-bear-glow: rgba(244, 63, 94, 0.15);
       --accent-blue: #38bdf8;
       --accent-indigo: #6366f1;
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.15);
       --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-base);
@@ -44,53 +42,48 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 15% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
       background-attachment: fixed;
     }
 
-    /* Container */
     .app-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 1.5rem 1rem 3rem 1rem;
     }
 
-    /* Top Navigation Header */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 1.5rem;
-      background: rgba(17, 22, 34, 0.75);
+      background: rgba(15, 21, 35, 0.8);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border-color);
       border-radius: 16px;
       margin-bottom: 2rem;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
+    .brand { display: flex; align-items: center; gap: 0.85rem; }
 
     .brand-icon {
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
       background: linear-gradient(135deg, var(--accent-indigo), var(--accent-blue));
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #fff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
     }
 
     .brand-text h1 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       text-transform: uppercase;
@@ -100,15 +93,9 @@
     }
 
     .brand-text p {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       font-family: var(--font-mono);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
     }
 
     .status-pill {
@@ -117,7 +104,7 @@
       gap: 0.4rem;
       background: var(--accent-bull-glow);
       border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 9999px;
       font-size: 0.75rem;
       font-weight: 600;
@@ -134,9 +121,159 @@
       animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* 10K Followers Strategy Unlock Banner */
+    .strategy-unlock-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .strategy-unlock-banner::before {
+      content: "LOCKED BLUEPRINT";
+      position: absolute;
+      right: -20px;
+      top: 15px;
+      background: var(--accent-gold);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      padding: 0.25rem 2rem;
+      transform: rotate(20deg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .unlock-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lock-icon {
+      font-size: 1.5rem;
+    }
+
+    .unlock-title h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .unlock-title p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Progress bar */
+    .progress-container {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      height: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      width: 35%; /* Adjust your follower milestone percentage */
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-bull));
+      border-radius: 9999px;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .cta-social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--accent-gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 10px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Profile & Philosophy Hero Banner */
+    .profile-hero {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .profile-info h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-info p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .strategy-rules {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .strategy-rules h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-blue);
+      margin-bottom: 0.6rem;
+      font-family: var(--font-mono);
+    }
+
+    .strategy-rules ul {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .strategy-rules li::before {
+      content: "▹";
+      color: var(--accent-indigo);
+      margin-right: 0.5rem;
+      font-weight: bold;
     }
 
     /* Metric Grid Cards */
@@ -152,14 +289,6 @@
       border: 1px solid var(--border-color);
       border-radius: 14px;
       padding: 1.25rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .metric-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-focus);
     }
 
     .metric-title {
@@ -170,7 +299,6 @@
       margin-bottom: 0.5rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
     }
 
     .metric-value {
@@ -181,7 +309,6 @@
     }
 
     .metric-value.bull { color: var(--accent-bull); }
-    .metric-value.bear { color: var(--accent-bear); }
 
     .metric-subtitle {
       font-size: 0.75rem;
@@ -189,7 +316,7 @@
       margin-top: 0.25rem;
     }
 
-    /* Filter Toolbar */
+    /* Toolbar & Tabs */
     .toolbar {
       display: flex;
       justify-content: space-between;
@@ -225,7 +352,7 @@
       color: var(--text-primary);
     }
 
-    /* Trading Journal Feed Grid */
+    /* Trading Journal Grid */
     .journal-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -262,15 +389,13 @@
       transition: transform 0.3s ease;
     }
 
-    .trade-card:hover .card-chart-preview img {
-      transform: scale(1.04);
-    }
+    .trade-card:hover .card-chart-preview img { transform: scale(1.04); }
 
     .chart-badge {
       position: absolute;
       top: 0.75rem;
       right: 0.75rem;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(6px);
       padding: 0.25rem 0.6rem;
       border-radius: 6px;
@@ -297,7 +422,6 @@
     .pair-badge {
       font-weight: 800;
       font-size: 1.05rem;
-      letter-spacing: -0.01em;
     }
 
     .tag-outcome {
@@ -350,7 +474,7 @@
       line-height: 1.45;
     }
 
-    /* Modal for Full Image/Details */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -422,11 +546,10 @@
       transition: color 0.2s;
     }
 
-    .footer-links a:hover {
-      color: var(--accent-blue);
-    }
+    .footer-links a:hover { color: var(--accent-blue); }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .profile-hero { grid-template-columns: 1fr; }
       .toolbar { flex-direction: column; align-items: stretch; }
       .metrics-grid { grid-template-columns: 1fr 1fr; }
       footer { flex-direction: column; text-align: center; }
@@ -443,17 +566,60 @@
       <div class="brand">
         <div class="brand-icon">FX</div>
         <div class="brand-text">
-          <h1>FXOP247 // Terminal</h1>
-          <p>Execution Engine & Trade Journal</p>
+          <h1>AAYU // FXOP247</h1>
+          <p>Institutional Execution Terminal & Live Journal</p>
         </div>
       </div>
       <div class="header-actions">
         <div class="status-pill">
           <div class="status-dot"></div>
-          <span>MARKET LIVE</span>
+          <span>OPERATOR ACTIVE</span>
         </div>
       </div>
     </header>
+
+    <!-- 10K Followers Strategy Unlock Banner -->
+    <section class="strategy-unlock-banner">
+      <div class="unlock-header">
+        <div class="lock-icon">🔒</div>
+        <div class="unlock-title">
+          <h2>Proprietary Strategy Reveal at 10,000 Followers</h2>
+          <p>Hamara Institutional Order Flow, Liquidity Sweeping & Fair Value Gap execution blueprint sabhi ke liye 100% FREE reveal hoga jaise hi ham 10K Community hit karenge.</p>
+        </div>
+      </div>
+      
+      <div>
+        <div class="progress-labels">
+          <span>Community Milestone Progress</span>
+          <span style="color: var(--accent-gold); font-weight: 700;">Target: 10,000 Followers</span>
+        </div>
+        <div class="progress-container" style="margin-top: 0.4rem;">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+
+      <a href="https://instagram.com" target="_blank" class="cta-social-btn">
+        🚀 Follow on Instagram & Unlock Strategy
+      </a>
+    </section>
+
+    <!-- Bio, Profile & Strategy Rules -->
+    <section class="profile-hero">
+      <div class="profile-info">
+        <h2>Forex Operator Profile</h2>
+        <p>
+          Specializing in Institutional Order Flow, Liquidity Sweeps, and Session Equilibrium entries across high-volume FX majors and Commodities. Executing with a systematic, risk-first methodology.
+        </p>
+      </div>
+      <div class="strategy-rules">
+        <h3>Execution Protocols</h3>
+        <ul>
+          <li>Focus on London & New York session open manipulations</li>
+          <li>Strict 1% max risk per trade with $\ge$ 1:2.5 Risk-to-Reward</li>
+          <li>Fair Value Gap (FVG) & Market Structure Shift (MSS) entries</li>
+        </ul>
+      </div>
+    </section>
 
     <!-- Key Metrics Grid -->
     <section class="metrics-grid">
@@ -482,23 +648,21 @@
     <!-- Toolbar & Filter -->
     <div class="toolbar">
       <div class="filter-tabs">
-        <button class="filter-btn active" onclick="filterTrades('all')">All Logs</button>
-        <button class="filter-btn" onclick="filterTrades('win')">Wins</button>
-        <button class="filter-btn" onclick="filterTrades('loss')">Losses</button>
+        <button class="filter-btn active" onclick="filterTrades('all', this)">All Logs</button>
+        <button class="filter-btn" onclick="filterTrades('win', this)">Wins</button>
+        <button class="filter-btn" onclick="filterTrades('loss', this)">Losses</button>
       </div>
       <div style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
-        Showing Verified Institutional Logs
+        Live Trade Journal Feed
       </div>
     </div>
 
     <!-- Trade Cards Grid -->
-    <main class="journal-grid" id="journalFeed">
-      <!-- Cards injected by JavaScript -->
-    </main>
+    <main class="journal-grid" id="journalFeed"></main>
 
     <!-- Footer -->
     <footer>
-      <div>&copy; 2026 FXOP247. All Institutional Rights Reserved.</div>
+      <div>&copy; 2026 FXOP247 (Aayu Forex Operator). All Rights Reserved.</div>
       <div class="footer-links">
         <a href="mailto:contact@fxop247.dpdns.org">✉️ contact@fxop247.dpdns.org</a>
         <a href="https://instagram.com" target="_blank">Instagram</a>
@@ -508,7 +672,7 @@
 
   </div>
 
-  <!-- Interactive Modal for Charts -->
+  <!-- Interactive Modal -->
   <div class="modal" id="chartModal" onclick="closeModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -520,7 +684,6 @@
   </div>
 
   <script>
-    // Trading Logs Data (Edit here to add/modify trades)
     const tradeData = [
       {
         id: "TRD-8941",
@@ -600,9 +763,9 @@
       });
     }
 
-    function filterTrades(type) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    function filterTrades(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       renderFeed(type);
     }
 
@@ -620,7 +783,6 @@
       document.getElementById('chartModal').classList.remove('active');
     }
 
-    // Initial render
     renderFeed();
   </script>
 </body>
