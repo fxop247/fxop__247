@@ -311,6 +311,11 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .partner-box:hover {
+      border-color: var(--surface-border-bright);
     }
 
     .partner-tag {
@@ -657,40 +662,46 @@
       </div>
     </section>
 
-    <!-- Partner Broker Desk (XM & CoinDCX) -->
+    <!-- Partner Broker Desk (XM & CoinDCX with Referral Links) -->
     <section class="partner-section">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
         <div>
           <h2 style="font-family:var(--font-display); font-size:1.25rem;">Official Execution Partners</h2>
-          <p style="font-size:0.8rem; color:var(--text-dim);">Ham Forex & Crypto execution ke liye XM aur CoinDCX ka use karte hain:</p>
+          <p style="font-size:0.8rem; color:var(--text-dim);">Ham Forex & Crypto trading ke liye XM aur CoinDCX ka use karte hain:</p>
         </div>
         <span class="mono" style="font-size:0.72rem; color:var(--accent-cyan);">VERIFIED REBATES & BONUSES</span>
       </div>
 
       <div class="partner-grid">
+        <!-- XM Global Partner Box -->
         <div class="partner-box">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <h3 style="font-family:var(--font-display); font-size:1.05rem;">XM Global (Forex & Gold)</h3>
               <span class="partner-tag">MetaTrader 4/5</span>
             </div>
-            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">Ultra-low spreads on Gold (XAUUSD) & EURUSD, zero requotes, and instant local deposits/withdrawals.</p>
+            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">
+              Ultra-low spreads on Gold (XAUUSD) & EURUSD, zero requotes, and instant local deposits/withdrawals.
+            </p>
           </div>
-          <a href="https://www.xm.com" target="_blank" class="btn btn-outline" style="font-size:0.8rem;">
-            📈 Open XM Live Account (Partner Rebates)
+          <a href="https://www.xmglobal.com/referral?token=euiaFYBdchpNgiCGGQAtIQ" target="_blank" class="btn btn-outline" style="font-size:0.8rem; border-color: var(--bull); color: var(--bull);">
+            📈 Open XM Account (Rebates Activated)
           </a>
         </div>
 
+        <!-- CoinDCX Partner Box -->
         <div class="partner-box">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <h3 style="font-family:var(--font-display); font-size:1.05rem;">CoinDCX (Crypto Desk)</h3>
-              <span class="partner-tag">Spot & Futures</span>
+              <span class="partner-tag">Win ₹10L BTC</span>
             </div>
-            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">Secure Indian crypto exchange for Bitcoin, Ethereum, and Altcoin derivatives with top-tier liquidity.</p>
+            <p style="font-size:0.8rem; color:var(--text-dim); margin-top:0.4rem;">
+              Trade Spot or Futures on CoinDCX and win assured Bitcoin rewards worth up to ₹10 Lakhs.
+            </p>
           </div>
-          <a href="https://coindcx.com" target="_blank" class="btn btn-outline" style="font-size:0.8rem;">
-            🪙 Trade on CoinDCX (Refer & Earn Bonus)
+          <a href="https://invite.coindcx.com/46310547" target="_blank" class="btn btn-outline" style="font-size:0.8rem; border-color: var(--gold); color: var(--gold);">
+            🪙 Claim ₹10L BTC Reward on CoinDCX
           </a>
         </div>
       </div>
@@ -728,7 +739,7 @@
         <div class="glass-card">
           <h3 class="mono">XAUUSD (Gold / USD)</h3>
           <p style="color:var(--bull); font-size:0.72rem; margin-bottom:0.3rem;" class="mono">NEW YORK & LONDON EXPANSIONS</p>
-          <p>Session liquidity sweeps and momentum imbalances inside NY killzones.</p>
+          <p>Session liquidity sweeps and momentum imbalances inside NY killzones on XM MT5.</p>
         </div>
         <div class="glass-card">
           <h3 class="mono">BTCUSD (Bitcoin)</h3>
@@ -831,7 +842,6 @@
   </div>
 
   <script>
-    // Artificial Vector Graphs (Candlestick + FVG Models)
     const svgBullGraph = `
       <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
