@@ -351,7 +351,7 @@
       height: 220px;
     }
 
-    /* Responsive Trading Journal (Cards on Mobile / Table on Tablet+) */
+    /* Responsive Trading Journal */
     .journal-mobile-list {
       display: flex;
       flex-direction: column;
@@ -418,6 +418,8 @@
       border: 1px solid var(--border-color);
       width: 100%;
       max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
       border-radius: 8px;
       padding: 1.25rem;
       position: relative;
@@ -463,7 +465,6 @@
     @media (min-width: 768px) {
       .desktop-nav { display: block; }
       .hamburger { display: none; }
-      .brand-title-mobile { display: none; }
       
       .grid-stack.mindset-grid { grid-template-columns: repeat(2, 1fr); }
       .grid-stack.markets-grid { grid-template-columns: repeat(3, 1fr); }
@@ -511,7 +512,7 @@
   <header>
     <div class="nav-container">
       <a href="#" class="brand">
-        <span class="brand-title-desktop">AAYU <span>|</span> FOREX OPERATOR</span>
+        <span>AAYU <span>|</span> FOREX OPERATOR</span>
       </a>
 
       <!-- Desktop Navigation Links -->
@@ -639,12 +640,10 @@
     <!-- Trading Journal -->
     <section id="journal">
       <div class="section-title">TRADING JOURNAL</div>
-      <div class="section-subtitle">Real-time log of verified execution setups</div>
+      <div class="section-subtitle">Real-time log of verified execution setups (Click to view breakdown)</div>
       
       <!-- Mobile Card List View -->
-      <div class="journal-mobile-list mono" id="journalMobileList">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="journal-mobile-list mono" id="journalMobileList"></div>
 
       <!-- Desktop/Tablet Table View -->
       <div class="journal-table-wrapper mono">
@@ -662,9 +661,7 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody id="journalTableBody">
-            <!-- Rendered via JS -->
-          </tbody>
+          <tbody id="journalTableBody"></tbody>
         </table>
       </div>
     </section>
@@ -710,7 +707,7 @@
   </footer>
 
   <script>
-    // Embedded initial data
+    // Trade Data List with Screenshot paths
     const tradeData = [
       {
         date: "2026-08-15",
@@ -722,6 +719,7 @@
         rr: "1:3.4",
         pnl: "+₹18,200",
         result: "PROFIT",
+        screenshot: "assets/screenshots/xauusd-trade1.png",
         reason: "London session high sweep followed by aggressive M5 displacement lower."
       },
       {
@@ -734,6 +732,7 @@
         rr: "1:3.0",
         pnl: "+₹24,500",
         result: "PROFIT",
+        screenshot: "assets/screenshots/btcusd-trade1.png",
         reason: "4H demand mitigation after sweeping sell-side liquidity into NY session."
       },
       {
@@ -746,6 +745,7 @@
         rr: "1:3.0",
         pnl: "-₹6,000",
         result: "LOSS",
+        screenshot: "",
         reason: "High impact news spike invalidated fair value gap structure."
       }
     ];
@@ -817,10 +817,18 @@
     drawerOverlay.addEventListener("click", closeMenu);
     drawerLinks.forEach(link => link.addEventListener("click", closeMenu));
 
-    // Modal Logic
+    // Modal Logic with Dynamic Image Handling
     function openModal(index) {
       const t = tradeData[index];
       document.getElementById("modalTitle").innerText = `${t.asset} • ${t.direction}`;
+      
+      const imageHtml = t.screenshot 
+        ? `<div style="margin-top: 1rem;">
+             <strong style="color:var(--text-main); font-size:0.75rem; text-transform:uppercase;">Setup Analysis:</strong>
+             <img src="${t.screenshot}" alt="${t.asset} Analysis" style="width: 100%; max-height: 240px; object-fit: contain; background: #000; border-radius: 6px; border: 1px solid var(--border-color); margin-top: 0.4rem; display: block;">
+           </div>`
+        : '';
+
       document.getElementById("modalDetails").innerHTML = `
         <p><strong>Date:</strong> ${t.date}</p>
         <p><strong>Execution Levels:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}</p>
@@ -828,6 +836,7 @@
         <p><strong>Risk / Reward:</strong> ${t.rr}</p>
         <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.75rem 0;">
         <p><strong>Technical Thesis:</strong> ${t.reason}</p>
+        ${imageHtml}
       `;
       document.getElementById("tradeModal").classList.add("open");
     }
