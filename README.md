@@ -9,7 +9,8 @@ Official repository for **AAYU | Forex Operator** personal trading brand, verifi
 
 ## 🌐 Live Website & Links
 
-* **Live Terminal:** [fxop247.qzz.io](https://fxop247.dpdns.org)
+* **Live Terminal:** [fxop247.dpdns.org
+](https://fxop247.dpdns.org)
 * **Instagram:** [@fxop247](https://instagram.com/fxop247)
 * **Hosting:** GitHub Pages (via DigitalPlat DNS)
 
