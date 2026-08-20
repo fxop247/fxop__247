@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAYU Forex Operator | Liquidity & Price Action Trader</title>
+  <meta name="description" content="AAYU Forex Operator — trading journal, XAUUSD, BTCUSD, Forex analysis, liquidity, price action and disciplined execution.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="AAYU Forex Operator | Liquidity & Price Action Trader">
+  <meta property="og:description" content="Small Trades. Big Moves. Liquidity • Price Action • Execution.">
+  <meta property="og:url" content="https://fxop247.qzz.io">
+  <meta property="og:type" content="website">
+
+  <!-- Lucide Icons & Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg-base: #0a0b0d;
+      --bg-surface: #111317;
+      --bg-card: rgba(18, 21, 26, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(34, 197, 94, 0.4);
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --mono-font: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .mono { font-family: var(--mono-font); }
+
+    /* Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 11, 13, 0.85);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .brand span { color: var(--green); }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--green); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 6rem 1.5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--green-glow);
+      border: 1px solid var(--green);
+      color: var(--green);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: #000;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-outline:hover { border-color: var(--green); }
+
+    /* Layout Sections */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Cards Grid */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--border-active); }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Dashboard Metrics */
+    .metrics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    .metric-val { font-size: 1.4rem; font-weight: 700; margin-top: 0.25rem; }
+
+    /* Trading Terminal / Journal Table */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-surface);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    th {
+      background: rgba(0,0,0,0.2);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+    tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-win { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+    .badge-loss { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    .badge-long { color: var(--green); }
+    .badge-short { color: var(--red); }
+
+    /* Chart Container */
+    .chart-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      width: 100%;
+      max-width: 600px;
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .disclaimer {
+      max-width: 700px;
+      margin: 1rem auto;
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="brand">AAYU <span>|</span> FOREX OPERATOR</div>
+      <nav>
+        <ul>
+          <li><a href="#mindset">MINDSET</a></li>
+          <li><a href="#markets">MARKETS</a></li>
+          <li><a href="#journal">JOURNAL</a></li>
+          <li><a href="#performance">PERFORMANCE</a></li>
+          <li><a href="#strategy">STRATEGY</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-tag mono">INSTAGRAM: @fxop__247</div>
+      <h1>AAYU<br><span style="color: var(--text-muted);">FOREX OPERATOR</span></h1>
+      <p>«Small Trades. Big Moves.» Liquidity • Price Action • Execution. Trading terminal & verified journal entries.</p>
+      <div class="btn-group">
+        <a href="#journal" class="btn btn-primary">View Journal</a>
+        <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-outline">Instagram Profile</a>
+      </div>
+    </section>
+
+    <!-- The Operator Mindset -->
+    <section id="mindset">
+      <div class="section-title">THE OPERATOR MINDSET</div>
+      <div class="section-subtitle">Core execution rules governing every trade setup</div>
+      <div class="grid-4">
+        <div class="card">
+          <h3 class="mono">01. Liquidity</h3>
+          <p>Understanding where orders rest and how institutional participants interact with high-volume levels.</p>
+        </div>
+        <div class="card">
+          <h3 class="mono">02. Price Action</h3>
+          <p>Reading pure market structure, displacement, and immediate order flow instead of lagging indicators.</p>
+        </div>
+        <div class="card">
+          <h3 class="mono">03. Execution</h3>
+          <p>Patience over impulsiveness. Taking entries exclusively when the predetermined criteria are met.</p>
+        </div>
+        <div class="card">
+          <h3 class="mono">04. Discipline</h3>
+          <p>Strict risk-to-reward ratios and mechanical execution. Managing psychology over raw outcomes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Markets -->
+    <section id="markets">
+      <div class="section-title">PRIMARY MARKETS</div>
+      <div class="section-subtitle">Instruments traded using structural order flow models</div>
+      <div class="grid-3">
+        <div class="card">
+          <h3 class="mono">XAUUSD</h3>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">GOLD / US DOLLAR</p>
+          <p>High-volatility intraday liquidity sweeps and London/New York session momentum structures.</p>
+        </div>
+        <div class="card">
+          <h3 class="mono">BTCUSD</h3>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">BITCOIN / US DOLLAR</p>
+          <p>High-timeframe market structural shifts and swing liquidity distributions.</p>
+        </div>
+        <div class="card">
+          <h3 class="mono">FOREX MAJORS</h3>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">EURUSD / GBPUSD</p>
+          <p>Session-based order flow models aligned with macroeconomic framework direction.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Performance Dashboard -->
+    <section id="performance">
+      <div class="section-title">PERFORMANCE DASHBOARD</div>
+      <div class="section-subtitle">Documented execution metrics and account growth curve</div>
+      
+      <div class="metrics-container mono">
+        <div class="metric-card">
+          <div class="metric-label">Win Rate</div>
+          <div class="metric-val" style="color: var(--green);">68.4%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg R:R</div>
+          <div class="metric-val">1:2.8</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Trades</div>
+          <div class="metric-val">42</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Profit Factor</div>
+          <div class="metric-val">2.31</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="equityChart" height="100"></canvas>
+      </div>
+    </section>
+
+    <!-- Trading Journal -->
+    <section id="journal">
+      <div class="section-title">TRADING JOURNAL</div>
+      <div class="section-subtitle">Real-time log of taken setups (Click entry to view trade breakdown)</div>
+      
+      <div class="table-container mono">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Asset</th>
+              <th>Side</th>
+              <th>Entry</th>
+              <th>SL</th>
+              <th>TP</th>
+              <th>R:R</th>
+              <th>P&L</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="journal-body">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy">
+      <div class="section-title">STRATEGY & FRAMEWORK</div>
+      <div class="section-subtitle">Standard technical entry criteria</div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Liquidity Engineering</h3>
+          <p>Locating clean equal highs/lows and resting market liquidity before looking for directional confirmation.</p>
+        </div>
+        <div class="card">
+          <h3>Market Structure Shift</h3>
+          <p>Validation of directional change via clean displacement candles breaking structural swing points.</p>
+        </div>
+        <div class="card">
+          <h3>Risk Management</h3>
+          <p>Fixed 1-2% account exposure per idea. Dynamic trailing stops applied only after 1:2 R:R expansion.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Trade Detail Modal -->
+  <div id="tradeModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h3 id="modalTitle" class="mono" style="margin-bottom: 0.5rem;"></h3>
+      <div id="modalDetails" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.8;"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="mono" style="color: var(--text-main); margin-bottom: 0.5rem;">AAYU | Forex Operator</div>
+    <p>«Small Trades. Big Moves.»</p>
+    <p class="disclaimer">
+      Trading involves substantial risk. Past performance does not guarantee future results. This website is for educational and informational purposes only and does not constitute financial advice.
+    </p>
+    <p style="margin-top: 1rem;">© 2026 AAYU Forex Operator. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Embedded initial data (easily replaceable with fetch('/data/trades.json'))
+    const tradeData = [
+      {
+        date: "2026-03-28",
+        asset: "XAUUSD",
+        direction: "SHORT",
+        entry: "2168.50",
+        sl: "2172.00",
+        tp: "2158.00",
+        rr: "1:3.0",
+        pnl: "+₹14,500",
+        result: "PROFIT",
+        reason: "London session sweep of Asian session high followed by an aggressive M5 displacement lower."
+      },
+      {
+        date: "2026-03-24",
+        asset: "BTCUSD",
+        direction: "LONG",
+        entry: "64,200",
+        sl: "63,600",
+        tp: "66,000",
+        rr: "1:3.0",
+        pnl: "+₹22,000",
+        result: "PROFIT",
+        reason: "Daily demand mitigation coinciding with 4H structural liquidity run."
+      },
+      {
+        date: "2026-03-20",
+        asset: "EURUSD",
+        direction: "SHORT",
+        entry: "1.0890",
+        sl: "1.0910",
+        tp: "1.0830",
+        rr: "1:3.0",
+        pnl: "-₹5,000",
+        result: "LOSS",
+        reason: "News spike invalidated the Fair Value Gap prior to New York open."
+      }
+    ];
+
+    // Populate Journal
+    const tbody = document.getElementById("journal-body");
+    tradeData.forEach((t, index) => {
+      const tr = document.createElement("tr");
+      const isWin = t.result === "PROFIT";
+      tr.innerHTML = `
+        <td>${t.date}</td>
+        <td><strong>${t.asset}</strong></td>
+        <td class="${t.direction === 'LONG' ? 'badge-long' : 'badge-short'}">${t.direction}</td>
+        <td>${t.entry}</td>
+        <td>${t.sl}</td>
+        <td>${t.tp}</td>
+        <td>${t.rr}</td>
+        <td style="color:${isWin ? 'var(--green)' : 'var(--red)'}">${t.pnl}</td>
+        <td><span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${t.result}</span></td>
+      `;
+      tr.onclick = () => openModal(index);
+      tbody.appendChild(tr);
+    });
+
+    // Modal Handlers
+    function openModal(index) {
+      const t = tradeData[index];
+      document.getElementById("modalTitle").innerText = `${t.asset} — ${t.direction} Trade Breakdown`;
+      document.getElementById("modalDetails").innerHTML = `
+        <p><strong>Date:</strong> ${t.date}</p>
+        <p><strong>Execution:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}</p>
+        <p><strong>Outcome:</strong> <span style="color:${t.result === 'PROFIT' ? 'var(--green)' : 'var(--red)'}">${t.result} (${t.pnl})</span></p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+        <p><strong>Technical Thesis:</strong> ${t.reason}</p>
+      `;
+      document.getElementById("tradeModal").classList.add("open");
+    }
+
+    function closeModal() {
+      document.getElementById("tradeModal").classList.remove("open");
+    }
+
+    // Equity Curve Chart
+    const ctx = document.getElementById('equityChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Account Equity ($)',
+          data: [10000, 10800, 10400, 12200, 13100, 14950],
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34, 197, 94, 0.05)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
