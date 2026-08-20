@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AAYU Forex Operator | Liquidity & Price Action Trader</title>
   <meta name="description" content="AAYU Forex Operator — trading journal, XAUUSD, BTCUSD, Forex analysis, liquidity, price action and disciplined execution.">
   
@@ -12,19 +12,22 @@
   <meta property="og:url" content="https://fxop247.qzz.io">
   <meta property="og:type" content="website">
 
-  <!-- Lucide Icons & Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+  <!-- PWA Setup -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0b0d">
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     :root {
       --bg-base: #0a0b0d;
-      --bg-surface: #111317;
-      --bg-card: rgba(18, 21, 26, 0.7);
+      --bg-surface: #12151a;
+      --bg-card: rgba(18, 21, 26, 0.85);
       --border-color: rgba(255, 255, 255, 0.08);
       --border-active: rgba(34, 197, 94, 0.4);
       --green: #22c55e;
-      --green-glow: rgba(34, 197, 94, 0.15);
+      --green-glow: rgba(34, 197, 94, 0.12);
       --red: #ef4444;
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
@@ -35,113 +38,248 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
     }
 
     .mono { font-family: var(--mono-font); }
 
-    /* Nav */
+    /* Header & Navigation */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(12px);
-      background: rgba(10, 11, 13, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 11, 13, 0.9);
       border-bottom: 1px solid var(--border-color);
+      width: 100%;
     }
+
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 0.875rem 1rem;
     }
+
     .brand {
       font-weight: 800;
+      font-size: 1rem;
       letter-spacing: 0.05em;
-      font-size: 1.1rem;
+      text-decoration: none;
+      color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
     }
     .brand span { color: var(--green); }
-    nav ul {
+
+    /* Desktop Navigation */
+    .desktop-nav {
+      display: none;
+    }
+
+    .desktop-nav ul {
       display: flex;
       list-style: none;
-      gap: 1.5rem;
+      gap: 1.25rem;
     }
-    nav a {
+
+    .desktop-nav a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.8rem;
+      font-weight: 600;
       letter-spacing: 0.05em;
       transition: color 0.2s;
     }
-    nav a:hover { color: var(--green); }
 
-    /* Hero */
-    .hero {
-      position: relative;
-      padding: 6rem 1.5rem 4rem;
+    .desktop-nav a:hover { color: var(--green); }
+
+    /* Mobile Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 110;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-main);
+      transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 2px;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: min(80vw, 320px);
+      height: 100vh;
+      height: 100dvh;
+      background: var(--bg-surface);
+      border-left: 1px solid var(--border-color);
+      z-index: 105;
+      display: flex;
+      flex-direction: column;
+      padding: 5rem 1.5rem 2rem;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    .mobile-drawer.open { right: 0; }
+
+    .mobile-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .mobile-drawer a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    .mobile-drawer a:hover { color: var(--green); }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 102;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Layout & Sections */
+    section {
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      text-align: center;
+      padding: clamp(2.5rem, 6vw, 4.5rem) 1rem;
     }
+
+    .section-title {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.825rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: clamp(3rem, 8vw, 5.5rem) 1rem 2.5rem;
+    }
+
     .hero-tag {
       display: inline-block;
-      padding: 0.25rem 0.75rem;
+      padding: 0.3rem 0.75rem;
       background: var(--green-glow);
       border: 1px solid var(--green);
       color: var(--green);
       border-radius: 9999px;
-      font-size: 0.75rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.7rem;
+      margin-bottom: 1.25rem;
     }
+
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2rem, 7vw, 4rem);
       font-weight: 900;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
     }
-    .hero p {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+
+    .hero .tagline {
+      font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+      color: var(--text-main);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtext {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 2rem;
+      max-width: 500px;
+      margin: 0 auto 1.75rem;
     }
+
     .btn-group {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
     }
+
     .btn {
-      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0.75rem 1.25rem;
       border-radius: 6px;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: 0.2s;
+      transition: 0.2s ease;
       cursor: pointer;
+      width: 100%;
     }
+
     .btn-primary {
       background: var(--green);
       color: #000;
     }
     .btn-primary:hover { opacity: 0.9; }
+
     .btn-outline {
       background: transparent;
       border: 1px solid var(--border-color);
@@ -149,156 +287,235 @@
     }
     .btn-outline:hover { border-color: var(--green); }
 
-    /* Layout Sections */
-    section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-    }
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
-    .section-subtitle {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-    }
-
     /* Cards Grid */
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .grid-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 1.5rem;
-      backdrop-filter: blur(8px);
+      padding: 1.25rem;
       transition: border-color 0.2s;
     }
     .card:hover { border-color: var(--border-active); }
-    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .card p {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
 
     /* Dashboard Metrics */
     .metrics-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
     }
+
     .metric-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      padding: 1rem;
+      padding: 0.875rem;
       border-radius: 6px;
     }
-    .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-    .metric-val { font-size: 1.4rem; font-weight: 700; margin-top: 0.25rem; }
 
-    /* Trading Terminal / Journal Table */
-    .table-container {
-      overflow-x: auto;
+    .metric-label {
+      font-size: 0.675rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .metric-val {
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    .chart-container {
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      background: var(--bg-surface);
-    }
-    table {
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      position: relative;
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.85rem;
+      height: 220px;
     }
-    th, td {
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid var(--border-color);
+
+    /* Responsive Trading Journal (Cards on Mobile / Table on Tablet+) */
+    .journal-mobile-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
-    th {
-      background: rgba(0,0,0,0.2);
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
+
+    .journal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+    }
+
+    .journal-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .journal-grid-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
       font-size: 0.75rem;
+      background: rgba(0,0,0,0.25);
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
     }
-    tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+
+    .journal-table-wrapper {
+      display: none;
+    }
+
     .badge {
       display: inline-block;
-      padding: 0.2rem 0.5rem;
+      padding: 0.15rem 0.45rem;
       border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.7rem;
+      font-weight: 700;
     }
     .badge-win { background: rgba(34, 197, 94, 0.15); color: var(--green); }
     .badge-loss { background: rgba(239, 68, 68, 0.15); color: var(--red); }
     .badge-long { color: var(--green); }
     .badge-short { color: var(--red); }
 
-    /* Chart Container */
-    .chart-container {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
     /* Modal */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
     .modal.open { display: flex; }
+
     .modal-content {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
       width: 100%;
-      max-width: 600px;
+      max-width: 520px;
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1.25rem;
       position: relative;
     }
+
     .close-btn {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: transparent;
       border: none;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
     }
 
     /* Footer */
     footer {
       border-top: 1px solid var(--border-color);
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1rem;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
     .disclaimer {
-      max-width: 700px;
-      margin: 1rem auto;
-      font-size: 0.75rem;
-      opacity: 0.7;
+      max-width: 600px;
+      margin: 0.75rem auto;
+      font-size: 0.7rem;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+
+    /* Responsive Breakpoints */
+    @media (min-width: 480px) {
+      .btn-group {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .desktop-nav { display: block; }
+      .hamburger { display: none; }
+      .brand-title-mobile { display: none; }
+      
+      .grid-stack.mindset-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-stack.markets-grid { grid-template-columns: repeat(3, 1fr); }
+      .grid-stack.strategy-grid { grid-template-columns: repeat(3, 1fr); }
+      .metrics-container { grid-template-columns: repeat(4, 1fr); }
+      
+      .chart-container { height: 280px; }
+
+      /* Table View on Tablet/Desktop */
+      .journal-mobile-list { display: none; }
+      .journal-table-wrapper {
+        display: block;
+        overflow-x: auto;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--bg-surface);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.8rem;
+      }
+      th, td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      th {
+        background: rgba(0,0,0,0.25);
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.7rem;
+      }
+      tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-stack.mindset-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header>
     <div class="nav-container">
-      <div class="brand">AAYU <span>|</span> FOREX OPERATOR</div>
-      <nav>
+      <a href="#" class="brand">
+        <span class="brand-title-desktop">AAYU <span>|</span> FOREX OPERATOR</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav">
         <ul>
           <li><a href="#mindset">MINDSET</a></li>
           <li><a href="#markets">MARKETS</a></li>
@@ -307,41 +524,62 @@
           <li><a href="#strategy">STRATEGY</a></li>
         </ul>
       </nav>
+
+      <!-- Hamburger Button -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <ul>
+      <li><a href="#mindset" class="drawer-link">Mindset</a></li>
+      <li><a href="#markets" class="drawer-link">Markets</a></li>
+      <li><a href="#journal" class="drawer-link">Trading Journal</a></li>
+      <li><a href="#performance" class="drawer-link">Performance</a></li>
+      <li><a href="#strategy" class="drawer-link">Strategy</a></li>
+      <li><a href="https://instagram.com/fxop__247" target="_blank" class="drawer-link" style="color: var(--green);">Instagram (@fxop__247)</a></li>
+    </ul>
+  </aside>
 
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-tag mono">INSTAGRAM: @fxop__247</div>
-      <h1>AAYU<br><span style="color: var(--text-muted);">FOREX OPERATOR</span></h1>
-      <p>«Small Trades. Big Moves.» Liquidity • Price Action • Execution. Trading terminal & verified journal entries.</p>
+      <div class="hero-tag mono">@fxop__247</div>
+      <h1>AAYU<br><span style="color: var(--text-muted); font-weight:700;">FOREX OPERATOR</span></h1>
+      <div class="tagline">«Small Trades. Big Moves.»</div>
+      <p class="subtext">Liquidity • Price Action • Execution. Real-time setup logs and institutional technical framework.</p>
       <div class="btn-group">
         <a href="#journal" class="btn btn-primary">View Journal</a>
-        <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-outline">Instagram Profile</a>
+        <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-outline">Instagram</a>
       </div>
     </section>
 
     <!-- The Operator Mindset -->
     <section id="mindset">
       <div class="section-title">THE OPERATOR MINDSET</div>
-      <div class="section-subtitle">Core execution rules governing every trade setup</div>
-      <div class="grid-4">
+      <div class="section-subtitle">Execution principles governing every trade setup</div>
+      <div class="grid-stack mindset-grid">
         <div class="card">
           <h3 class="mono">01. Liquidity</h3>
-          <p>Understanding where orders rest and how institutional participants interact with high-volume levels.</p>
+          <p>Identifying institutional order clusters and resting market stops before anticipating directional continuation.</p>
         </div>
         <div class="card">
           <h3 class="mono">02. Price Action</h3>
-          <p>Reading pure market structure, displacement, and immediate order flow instead of lagging indicators.</p>
+          <p>Reading real market structure and clean displacement rather than relying on lagging indicators.</p>
         </div>
         <div class="card">
           <h3 class="mono">03. Execution</h3>
-          <p>Patience over impulsiveness. Taking entries exclusively when the predetermined criteria are met.</p>
+          <p>Strict patience over impulse. Taking action only when pre-defined setup parameters are fully confirmed.</p>
         </div>
         <div class="card">
           <h3 class="mono">04. Discipline</h3>
-          <p>Strict risk-to-reward ratios and mechanical execution. Managing psychology over raw outcomes.</p>
+          <p>Systematic risk management over emotional bias. Risk is defined before entry is clicked.</p>
         </div>
       </div>
     </section>
@@ -349,22 +587,22 @@
     <!-- Markets -->
     <section id="markets">
       <div class="section-title">PRIMARY MARKETS</div>
-      <div class="section-subtitle">Instruments traded using structural order flow models</div>
-      <div class="grid-3">
+      <div class="section-subtitle">Core instruments traded using order flow models</div>
+      <div class="grid-stack markets-grid">
         <div class="card">
           <h3 class="mono">XAUUSD</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">GOLD / US DOLLAR</p>
-          <p>High-volatility intraday liquidity sweeps and London/New York session momentum structures.</p>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">GOLD / US DOLLAR</p>
+          <p>Session liquidity sweeps and London/NY momentum expansions.</p>
         </div>
         <div class="card">
           <h3 class="mono">BTCUSD</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">BITCOIN / US DOLLAR</p>
-          <p>High-timeframe market structural shifts and swing liquidity distributions.</p>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">BITCOIN / US DOLLAR</p>
+          <p>Higher timeframe structural shifts and swing liquidity distributions.</p>
         </div>
         <div class="card">
-          <h3 class="mono">FOREX MAJORS</h3>
-          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.5rem;" class="mono">EURUSD / GBPUSD</p>
-          <p>Session-based order flow models aligned with macroeconomic framework direction.</p>
+          <h3 class="mono">FOREX</h3>
+          <p style="color:var(--green); font-size:0.75rem; margin-bottom: 0.35rem;" class="mono">EURUSD / GBPUSD</p>
+          <p>Displacement models aligned with macroeconomic framework direction.</p>
         </div>
       </div>
     </section>
@@ -372,7 +610,7 @@
     <!-- Performance Dashboard -->
     <section id="performance">
       <div class="section-title">PERFORMANCE DASHBOARD</div>
-      <div class="section-subtitle">Documented execution metrics and account growth curve</div>
+      <div class="section-subtitle">Documented execution metrics and account growth</div>
       
       <div class="metrics-container mono">
         <div class="metric-card">
@@ -394,16 +632,22 @@
       </div>
 
       <div class="chart-container">
-        <canvas id="equityChart" height="100"></canvas>
+        <canvas id="equityChart"></canvas>
       </div>
     </section>
 
     <!-- Trading Journal -->
     <section id="journal">
       <div class="section-title">TRADING JOURNAL</div>
-      <div class="section-subtitle">Real-time log of taken setups (Click entry to view trade breakdown)</div>
+      <div class="section-subtitle">Real-time log of verified execution setups</div>
       
-      <div class="table-container mono">
+      <!-- Mobile Card List View -->
+      <div class="journal-mobile-list mono" id="journalMobileList">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Desktop/Tablet Table View -->
+      <div class="journal-table-wrapper mono">
         <table>
           <thead>
             <tr>
@@ -418,7 +662,7 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody id="journal-body">
+          <tbody id="journalTableBody">
             <!-- Rendered via JS -->
           </tbody>
         </table>
@@ -428,19 +672,19 @@
     <!-- Strategy Section -->
     <section id="strategy">
       <div class="section-title">STRATEGY & FRAMEWORK</div>
-      <div class="section-subtitle">Standard technical entry criteria</div>
-      <div class="grid-3">
+      <div class="section-subtitle">Mechanical setup qualification</div>
+      <div class="grid-stack strategy-grid">
         <div class="card">
           <h3>Liquidity Engineering</h3>
-          <p>Locating clean equal highs/lows and resting market liquidity before looking for directional confirmation.</p>
+          <p>Identifying liquidity pools and equal highs/lows prior to directional confirmation.</p>
         </div>
         <div class="card">
-          <h3>Market Structure Shift</h3>
-          <p>Validation of directional change via clean displacement candles breaking structural swing points.</p>
+          <h3>Structure Shift</h3>
+          <p>Validating direction with displacement candles breaking key structural points.</p>
         </div>
         <div class="card">
           <h3>Risk Management</h3>
-          <p>Fixed 1-2% account exposure per idea. Dynamic trailing stops applied only after 1:2 R:R expansion.</p>
+          <p>Fixed 1-2% account exposure. Stops strictly placed at structural invalidation levels.</p>
         </div>
       </div>
     </section>
@@ -450,66 +694,93 @@
   <div id="tradeModal" class="modal">
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">×</button>
-      <h3 id="modalTitle" class="mono" style="margin-bottom: 0.5rem;"></h3>
-      <div id="modalDetails" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.8;"></div>
+      <h3 id="modalTitle" class="mono" style="margin-bottom: 0.5rem; font-size:1.05rem;"></h3>
+      <div id="modalDetails" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; line-height: 1.7;"></div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <div class="mono" style="color: var(--text-main); margin-bottom: 0.5rem;">AAYU | Forex Operator</div>
+    <div class="mono" style="color: var(--text-main); font-weight:700; margin-bottom: 0.25rem;">AAYU | FOREX OPERATOR</div>
     <p>«Small Trades. Big Moves.»</p>
     <p class="disclaimer">
       Trading involves substantial risk. Past performance does not guarantee future results. This website is for educational and informational purposes only and does not constitute financial advice.
     </p>
-    <p style="margin-top: 1rem;">© 2026 AAYU Forex Operator. All rights reserved.</p>
+    <p style="margin-top: 1rem; opacity: 0.6;">© 2026 AAYU Forex Operator. All rights reserved.</p>
   </footer>
 
   <script>
-    // Embedded initial data (easily replaceable with fetch('/data/trades.json'))
+    // Embedded initial data
     const tradeData = [
       {
-        date: "2026-03-28",
+        date: "2026-08-15",
         asset: "XAUUSD",
         direction: "SHORT",
-        entry: "2168.50",
-        sl: "2172.00",
-        tp: "2158.00",
-        rr: "1:3.0",
-        pnl: "+₹14,500",
+        entry: "2410.50",
+        sl: "2415.00",
+        tp: "2395.00",
+        rr: "1:3.4",
+        pnl: "+₹18,200",
         result: "PROFIT",
-        reason: "London session sweep of Asian session high followed by an aggressive M5 displacement lower."
+        reason: "London session high sweep followed by aggressive M5 displacement lower."
       },
       {
-        date: "2026-03-24",
+        date: "2026-08-12",
         asset: "BTCUSD",
         direction: "LONG",
-        entry: "64,200",
-        sl: "63,600",
-        tp: "66,000",
+        entry: "58,400",
+        sl: "57,800",
+        tp: "60,200",
         rr: "1:3.0",
-        pnl: "+₹22,000",
+        pnl: "+₹24,500",
         result: "PROFIT",
-        reason: "Daily demand mitigation coinciding with 4H structural liquidity run."
+        reason: "4H demand mitigation after sweeping sell-side liquidity into NY session."
       },
       {
-        date: "2026-03-20",
+        date: "2026-08-08",
         asset: "EURUSD",
         direction: "SHORT",
-        entry: "1.0890",
-        sl: "1.0910",
-        tp: "1.0830",
+        entry: "1.0920",
+        sl: "1.0940",
+        tp: "1.0860",
         rr: "1:3.0",
-        pnl: "-₹5,000",
+        pnl: "-₹6,000",
         result: "LOSS",
-        reason: "News spike invalidated the Fair Value Gap prior to New York open."
+        reason: "High impact news spike invalidated fair value gap structure."
       }
     ];
 
-    // Populate Journal
-    const tbody = document.getElementById("journal-body");
+    // Populate Mobile Journal Cards & Desktop Table
+    const mobileContainer = document.getElementById("journalMobileList");
+    const tableBody = document.getElementById("journalTableBody");
+
     tradeData.forEach((t, index) => {
-      const tr = document.createElement("tr");
       const isWin = t.result === "PROFIT";
+
+      // Mobile Card HTML
+      const card = document.createElement("div");
+      card.className = "journal-card";
+      card.onclick = () => openModal(index);
+      card.innerHTML = `
+        <div class="journal-card-header">
+          <div>
+            <strong>${t.asset}</strong> 
+            <span class="${t.direction === 'LONG' ? 'badge-long' : 'badge-short'}" style="font-size:0.75rem; margin-left:0.25rem;">${t.direction}</span>
+          </div>
+          <span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${t.result}</span>
+        </div>
+        <div style="font-size:0.7rem; color:var(--text-muted);">${t.date}</div>
+        <div class="journal-grid-details">
+          <div><span style="color:var(--text-muted);">Entry:</span> ${t.entry}</div>
+          <div><span style="color:var(--text-muted);">R:R:</span> ${t.rr}</div>
+          <div><span style="color:var(--text-muted);">P&L:</span> <span style="color:${isWin ? 'var(--green)' : 'var(--red)'}">${t.pnl}</span></div>
+        </div>
+      `;
+      mobileContainer.appendChild(card);
+
+      // Desktop Table Row HTML
+      const tr = document.createElement("tr");
+      tr.onclick = () => openModal(index);
       tr.innerHTML = `
         <td>${t.date}</td>
         <td><strong>${t.asset}</strong></td>
@@ -521,19 +792,41 @@
         <td style="color:${isWin ? 'var(--green)' : 'var(--red)'}">${t.pnl}</td>
         <td><span class="badge ${isWin ? 'badge-win' : 'badge-loss'}">${t.result}</span></td>
       `;
-      tr.onclick = () => openModal(index);
-      tbody.appendChild(tr);
+      tableBody.appendChild(tr);
     });
 
-    // Modal Handlers
+    // Mobile Navigation Drawer Toggle
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const mobileDrawer = document.getElementById("mobileDrawer");
+    const drawerOverlay = document.getElementById("drawerOverlay");
+    const drawerLinks = document.querySelectorAll(".drawer-link");
+
+    function toggleMenu() {
+      hamburgerBtn.classList.toggle("open");
+      mobileDrawer.classList.toggle("open");
+      drawerOverlay.classList.toggle("open");
+    }
+
+    function closeMenu() {
+      hamburgerBtn.classList.remove("open");
+      mobileDrawer.classList.remove("open");
+      drawerOverlay.classList.remove("open");
+    }
+
+    hamburgerBtn.addEventListener("click", toggleMenu);
+    drawerOverlay.addEventListener("click", closeMenu);
+    drawerLinks.forEach(link => link.addEventListener("click", closeMenu));
+
+    // Modal Logic
     function openModal(index) {
       const t = tradeData[index];
-      document.getElementById("modalTitle").innerText = `${t.asset} — ${t.direction} Trade Breakdown`;
+      document.getElementById("modalTitle").innerText = `${t.asset} • ${t.direction}`;
       document.getElementById("modalDetails").innerHTML = `
         <p><strong>Date:</strong> ${t.date}</p>
-        <p><strong>Execution:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}</p>
+        <p><strong>Execution Levels:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}</p>
         <p><strong>Outcome:</strong> <span style="color:${t.result === 'PROFIT' ? 'var(--green)' : 'var(--red)'}">${t.result} (${t.pnl})</span></p>
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+        <p><strong>Risk / Reward:</strong> ${t.rr}</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.75rem 0;">
         <p><strong>Technical Thesis:</strong> ${t.reason}</p>
       `;
       document.getElementById("tradeModal").classList.add("open");
@@ -543,28 +836,29 @@
       document.getElementById("tradeModal").classList.remove("open");
     }
 
-    // Equity Curve Chart
+    // Chart.js Equity Curve
     const ctx = document.getElementById('equityChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
         datasets: [{
-          label: 'Account Equity ($)',
-          data: [10000, 10800, 10400, 12200, 13100, 14950],
+          data: [10000, 10800, 10400, 12200, 13100, 14950, 14200, 16800],
           borderColor: '#22c55e',
-          backgroundColor: 'rgba(34, 197, 94, 0.05)',
+          backgroundColor: 'rgba(34, 197, 94, 0.04)',
           borderWidth: 2,
+          pointRadius: 2,
           fill: true,
           tension: 0.3
         }]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } },
-          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } }
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9ca3af', font: { size: 10 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
         }
       }
     });
