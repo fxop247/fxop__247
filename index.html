@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AAYU FOREX OPERATOR | Institutional Execution Terminal</title>
-  <meta name="description" content="AAYU FOREX OPERATOR — Institutional Execution Engine, MT5 Algo EA, Liquidity & Price Action Journal.">
+  <title>AAYU FOREX OPERATOR | Institutional Execution & Educational Desk</title>
+  <meta name="description" content="AAYU FOREX OPERATOR — Institutional Execution Framework, Strategy Breakdown, Risk Management & Trade Journal.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,10 +15,10 @@
 
   <style>
     :root {
-      --bg-dark: #05070b;
-      --bg-surface: #0b0f17;
-      --card-bg: rgba(14, 19, 29, 0.75);
-      --card-hover: rgba(20, 27, 41, 0.95);
+      --bg-dark: #07090e;
+      --bg-surface: #0c1018;
+      --card-bg: rgba(13, 18, 28, 0.85);
+      --card-hover: rgba(18, 24, 38, 0.98);
       --surface-border: rgba(255, 255, 255, 0.08);
       --surface-border-bright: rgba(99, 102, 241, 0.4);
       --text-main: #f8fafc;
@@ -27,9 +27,9 @@
       --accent-neon: #6366f1;
       --accent-cyan: #06b6d4;
       --bull: #10b981;
-      --bull-glow: rgba(16, 185, 129, 0.15);
+      --bull-glow: rgba(16, 185, 129, 0.2);
       --bear: #f43f5e;
-      --bear-glow: rgba(244, 63, 94, 0.15);
+      --bear-glow: rgba(244, 63, 94, 0.2);
       --gold: #f59e0b;
       --font-body: 'Plus Jakarta Sans', sans-serif;
       --font-display: 'Space Grotesk', sans-serif;
@@ -46,10 +46,10 @@
       line-height: 1.5;
       overflow-x: hidden;
       background-image: 
-        linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px),
-        radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 90% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
       background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
       background-attachment: fixed;
     }
@@ -62,31 +62,27 @@
 
     .mono { font-family: var(--font-mono); }
 
-    /* Top Live Ticker Ribbon */
-    .ticker-bar {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      padding: 0.5rem 1rem;
-      background: rgba(11, 15, 23, 0.9);
-      border: 1px solid var(--surface-border);
+    /* Strict Risk Notice */
+    .risk-banner {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.3);
       border-radius: 10px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.74rem;
+      color: #fca5a5;
       margin-bottom: 1.25rem;
-      scrollbar-width: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      line-height: 1.45;
     }
-    .ticker-bar::-webkit-scrollbar { display: none; }
-    .ticker-item { display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
-    .ticker-item .val { color: var(--text-main); font-weight: 700; }
-    .ticker-item .up { color: var(--bull); }
 
     /* Sticky Navigation Header */
     header {
       position: sticky;
       top: 0.75rem;
       z-index: 100;
-      background: rgba(11, 15, 23, 0.85);
+      background: rgba(11, 15, 23, 0.88);
       backdrop-filter: blur(16px);
       border: 1px solid var(--surface-border);
       border-radius: 16px;
@@ -134,11 +130,11 @@
       gap: 0.45rem;
       background: var(--bull-glow);
       border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.8rem;
       border-radius: 99px;
       font-size: 0.7rem;
       font-family: var(--font-mono);
-      font-weight: 600;
+      font-weight: 700;
       color: var(--bull);
     }
 
@@ -153,31 +149,7 @@
 
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* Session Clocks Bar */
-    .session-clocks {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .clock-card {
-      background: var(--card-bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      padding: 0.6rem 0.85rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-    }
-
-    .clock-status { font-size: 0.65rem; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 700; }
-    .clock-open { background: var(--bull-glow); color: var(--bull); border: 1px solid rgba(16,185,129,0.3); }
-    .clock-closed { background: rgba(255,255,255,0.05); color: var(--text-subtle); }
-
-    /* Primary Category Switcher Tabs */
+    /* Category Switcher Tabs */
     .category-nav {
       display: flex;
       background: var(--card-bg);
@@ -218,11 +190,7 @@
       box-shadow: 0 4px 15px rgba(255,255,255,0.2);
     }
 
-    /* Category Content Sections */
-    .tab-pane {
-      display: none;
-      animation: fadeIn 0.25s ease-in-out;
-    }
+    .tab-pane { display: none; animation: fadeIn 0.25s ease-in-out; }
     .tab-pane.active { display: block; }
 
     @keyframes fadeIn {
@@ -230,25 +198,74 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards & Grids */
-    .grid-stack {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 1.75rem 1rem 2.5rem;
     }
 
-    .glass-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--surface-border);
-      border-radius: 14px;
-      padding: 1.25rem;
-      transition: all 0.2s;
+    .hero-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--accent-neon);
+      color: #a5b4fc;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      margin-bottom: 1rem;
     }
-    .glass-card:hover { border-color: var(--surface-border-bright); }
 
-    /* Performance Metrics Row */
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 5.5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .tagline {
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      color: var(--text-main);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero .subtext {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      max-width: 580px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: #fff; color: #000; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); }
+    .btn-outline { background: transparent; border: 1px solid var(--surface-border); color: var(--text-main); }
+    .btn-outline:hover { border-color: var(--accent-neon); color: #a5b4fc; }
+
+    /* Performance Cards */
     .metrics-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -284,10 +301,27 @@
       border-radius: 14px;
       padding: 1.25rem;
       margin-bottom: 1.5rem;
-      height: 250px;
+      height: 260px;
     }
 
-    /* Promo & Unlock Cards */
+    .grid-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+    }
+    .glass-card:hover { border-color: var(--surface-border-bright); }
+
+    /* Promo & EA Cards */
     .promo-card {
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
       border: 1px solid rgba(245, 158, 11, 0.25);
@@ -332,26 +366,7 @@
       border-radius: 99px;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.3rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.84rem;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary { background: #fff; color: #000; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); }
-    .btn-outline { background: transparent; border: 1px solid var(--surface-border); color: var(--text-main); }
-    .btn-outline:hover { border-color: var(--accent-neon); color: #a5b4fc; }
-
-    /* Interactive Risk & Lot Size Calculator */
+    /* Calculator */
     .calc-card {
       background: var(--card-bg);
       border: 1px solid var(--surface-border);
@@ -387,9 +402,6 @@
       font-size: 0.85rem;
       outline: none;
     }
-    .calc-input-group input:focus, .calc-input-group select:focus {
-      border-color: var(--accent-cyan);
-    }
 
     .calc-result-box {
       background: rgba(6, 182, 212, 0.08);
@@ -402,7 +414,7 @@
       text-align: center;
     }
 
-    /* Partner Box (XM & CoinDCX) */
+    /* Partner Cards */
     .partner-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -422,45 +434,62 @@
     }
     .partner-box:hover { border-color: var(--surface-border-bright); }
 
-    /* Journal Cards Grid */
+    /* ========================================================
+       UNIFIED INSTITUTIONAL VECTOR GRAPH CARDS (SAME STYLE)
+       ======================================================== */
     .journal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
       gap: 1.25rem;
     }
 
     .log-card {
       background: var(--card-bg);
       border: 1px solid var(--surface-border);
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       transition: all 0.25s ease;
+      box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
     }
-    .log-card:hover { border-color: var(--surface-border-bright); transform: translateY(-3px); }
+    .log-card:hover { 
+      border-color: var(--surface-border-bright); 
+      transform: translateY(-3px); 
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.7);
+    }
 
     .chart-thumb {
-      height: 170px;
-      background: #020408;
+      height: 180px;
+      background: #04060a;
       position: relative;
       cursor: pointer;
       overflow: hidden;
+      border-bottom: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .chart-thumb svg { width: 100%; height: 100%; }
+    .chart-thumb svg { 
+      width: 100%; 
+      height: 100%; 
+      display: block;
+    }
 
     .tag-session {
       position: absolute;
       top: 0.65rem;
       left: 0.65rem;
-      background: rgba(7, 9, 14, 0.85);
-      backdrop-filter: blur(6px);
+      background: rgba(7, 9, 14, 0.88);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--surface-border);
-      padding: 0.2rem 0.5rem;
+      padding: 0.22rem 0.55rem;
       border-radius: 6px;
       font-size: 0.68rem;
       font-family: var(--font-mono);
       font-weight: 600;
+      color: #e2e8f0;
+      z-index: 2;
     }
 
     .card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; flex-grow: 1; }
@@ -469,9 +498,10 @@
       font-size: 0.68rem;
       font-family: var(--font-mono);
       font-weight: 700;
-      padding: 0.2rem 0.5rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 4px;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .badge-win { background: var(--bull-glow); color: var(--bull); border: 1px solid rgba(16,185,129,0.3); }
     .badge-loss { background: var(--bear-glow); color: var(--bear); border: 1px solid rgba(244,63,94,0.3); }
@@ -479,7 +509,7 @@
     .stat-matrix {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.35);
       border: 1px solid var(--surface-border);
       border-radius: 8px;
       padding: 0.55rem;
@@ -547,7 +577,6 @@
     .footer-links a:hover { color: var(--accent-cyan); }
 
     @media (max-width: 768px) {
-      .session-clocks { grid-template-columns: 1fr 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -556,13 +585,12 @@
 
   <div class="container">
 
-    <!-- Live Real-Time Price Ticker Ribbon -->
-    <div class="ticker-bar">
-      <div class="ticker-item"><span>XAUUSD:</span> <span class="val">2,414.20</span> <span class="up">▲ +1.2%</span></div>
-      <div class="ticker-item"><span>BTCUSD:</span> <span class="val">59,850.00</span> <span class="up">▲ +2.4%</span></div>
-      <div class="ticker-item"><span>EURUSD:</span> <span class="val">1.0924</span> <span>-0.1%</span></div>
-      <div class="ticker-item"><span>GBPUSD:</span> <span class="val">1.2860</span> <span class="up">▲ +0.3%</span></div>
-      <div class="ticker-item" style="color: var(--accent-cyan);"><span>MT5 STATUS:</span> <span class="val">CONNECTED</span></div>
+    <!-- Strict Risk Warning Notice -->
+    <div class="risk-banner">
+      <span style="font-size: 1.1rem;">⚠️</span>
+      <div>
+        <strong>Risk Warning & Educational Notice:</strong> Trading financial markets involves high risk of capital loss. Past technical case studies do not guarantee future returns. This desk is strictly for educational, research & mechanical journaling purposes.
+      </div>
     </div>
     
     <!-- Top Sticky Header -->
@@ -571,7 +599,7 @@
         <div class="brand-badge">FX</div>
         <div class="brand-text">
           <h1>AAYU FOREX OPERATOR</h1>
-          <p>Institutional Execution Terminal</p>
+          <p>Institutional Execution & Strategy Desk</p>
         </div>
       </a>
 
@@ -581,38 +609,36 @@
       </div>
     </header>
 
-    <!-- Live Session Clocks Bar -->
-    <div class="session-clocks">
-      <div class="clock-card">
-        <span>🇬🇧 London</span>
-        <span class="clock-status clock-open">ACTIVE</span>
-      </div>
-      <div class="clock-card">
-        <span>🇺🇸 New York</span>
-        <span class="clock-status clock-open">ACTIVE</span>
-      </div>
-      <div class="clock-card">
-        <span>🇯🇵 Tokyo</span>
-        <span class="clock-status clock-closed">CLOSED</span>
-      </div>
-      <div class="clock-card">
-        <span>🇦🇺 Sydney</span>
-        <span class="clock-status clock-closed">CLOSED</span>
-      </div>
-    </div>
-
     <!-- Category Switcher Tabs (Zero Long-Scroll) -->
     <nav class="category-nav">
       <button class="cat-tab active" onclick="switchCategory('tab-terminal', this)">📊 Terminal Desk</button>
-      <button class="cat-tab" onclick="switchCategory('tab-algo', this)">🤖 Algo & EA Lab</button>
-      <button class="cat-tab" onclick="switchCategory('tab-partners', this)">🏦 Broker Desk</button>
-      <button class="cat-tab" onclick="switchCategory('tab-journal', this)">📓 Trade Logs</button>
+      <button class="cat-tab" onclick="switchCategory('tab-algo', this)">🤖 Algo & Risk Lab</button>
+      <button class="cat-tab" onclick="switchCategory('tab-partners', this)">🏦 Partner Desk</button>
+      <button class="cat-tab" onclick="switchCategory('tab-journal', this)">📓 Case Study Logs</button>
       <button class="cat-tab" onclick="switchCategory('tab-strategy', this)">🔒 10K Blueprint</button>
     </nav>
 
-    <!-- TAB 1: TERMINAL DESK (Home Dashboard & Equity) -->
+    <!-- TAB 1: TERMINAL OVERVIEW -->
     <section id="tab-terminal" class="tab-pane active">
-      <!-- Performance Metrics -->
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-tag">@fxop__247 // STRATEGY & EXECUTION JOURNAL</div>
+        <h1>AAYU<br><span style="color: var(--text-dim); font-weight:700;">FOREX OPERATOR</span></h1>
+        <div class="tagline">«Small Trades. Big Moves.»</div>
+        <p class="subtext">Liquidity • Price Action • Disciplined Risk Modeling. Historical technical logs and mechanical risk protocols.</p>
+        
+        <div class="btn-group">
+          <button onclick="document.querySelectorAll('.cat-tab')[3].click()" class="btn btn-primary">Inspect Trade Logs</button>
+          <a href="https://t.me/fxop247" target="_blank" class="btn btn-outline" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">
+            🚀 Telegram (@fxop247)
+          </a>
+          <a href="https://instagram.com/fxop__247" target="_blank" class="btn btn-outline">
+            Instagram (@fxop__247)
+          </a>
+        </div>
+      </div>
+
+      <!-- Performance Metrics (Documented Samples) -->
       <div class="metrics-row">
         <div class="metric-card">
           <small>Win Rate 🎯</small>
@@ -627,54 +653,54 @@
           <div class="val">1 : 3.2</div>
         </div>
         <div class="metric-card">
-          <small>Total Trades 📊</small>
+          <small>Documented Setups 📊</small>
           <div class="val">42</div>
         </div>
       </div>
 
-      <!-- Equity Curve -->
+      <!-- Main Equity Graph -->
       <div class="chart-box">
         <canvas id="equityChart"></canvas>
       </div>
 
-      <!-- Mindset Grid -->
+      <!-- Core Disciplines -->
       <div class="grid-stack">
         <div class="glass-card">
           <h3 class="mono" style="color: var(--accent-cyan); margin-bottom: 0.3rem;">01. Liquidity First</h3>
-          <p style="font-size: 0.84rem; color: var(--text-dim);">Detecting institutional stop sweeps and liquidity pools prior to entering directional momentum expansions.</p>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Detecting institutional stop sweeps and resting liquidity pools before expecting directional momentum expansions.</p>
         </div>
         <div class="glass-card">
           <h3 class="mono" style="color: var(--bull); margin-bottom: 0.3rem;">02. Price Action</h3>
           <p style="font-size: 0.84rem; color: var(--text-dim);">Reading real market displacement and Fair Value Gaps (FVG) instead of relying on lagging lagging oscillators.</p>
         </div>
         <div class="glass-card">
-          <h3 class="mono" style="color: var(--accent-neon); margin-bottom: 0.3rem;">03. Risk Management</h3>
-          <p style="font-size: 0.84rem; color: var(--text-dim);">Fixed 1-2% account exposure. Stops strictly placed at structural invalidation levels. Daily drawdown hard capped at 2%.</p>
+          <h3 class="mono" style="color: var(--bear); margin-bottom: 0.3rem;">03. Risk Management</h3>
+          <p style="font-size: 0.84rem; color: var(--text-dim);">Capital safety first. Maximum 1-2% exposure per execution with daily loss ceiling strictly enforced.</p>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: ALGO & FREE EA LAB -->
+    <!-- TAB 2: ALGO & RISK LAB -->
     <section id="tab-algo" class="tab-pane">
       <div class="promo-card ea-card">
         <div class="ribbon">FREE EA BOT</div>
         <div>
           <h2 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.4rem;">🤖 Automated MT5 Expert Advisor (Coming Soon)</h2>
           <p style="color: var(--text-dim); font-size: 0.88rem; line-height: 1.6;">
-            Hamara automated institutional <strong>MetaTrader 5 Expert Advisor (EA)</strong> jald launch ho raha hai. Yeh bot London & New York session imbalances aur Asian range liquidity sweep setups ko 100% mechanical rules ke sath automate karega.
+            Hamara automated institutional <strong>MetaTrader 5 Expert Advisor (EA)</strong> jald testing complete hone par share kiya jayega. Zero fee, strictly programmed with fixed mechanical risk parameters.
           </p>
         </div>
         <div style="margin-top: 1rem;">
           <a href="https://t.me/fxop247" target="_blank" class="btn btn-primary" style="background: var(--accent-cyan); color: #000;">
-            🚀 Join Telegram for EA Early Access & Beta Tests
+            🚀 Join Telegram for EA Testing & Strategy Alerts
           </a>
         </div>
       </div>
 
-      <!-- Lot Size Calculator Built-In -->
+      <!-- Lot Size Calculator -->
       <div class="calc-card">
-        <h3 style="font-family: var(--font-display); font-size: 1.15rem;">📐 Institutional Lot Size & Risk Calculator</h3>
-        <p style="font-size: 0.8rem; color: var(--text-dim);">Apne account size aur Stop Loss pips ke hisab se exact safe lot size calculate karein:</p>
+        <h3 style="font-family: var(--font-display); font-size: 1.15rem;">📐 Capital Protection & Lot Size Calculator</h3>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">Har trade lagane se pehle apna exact position size aur dollar risk calculate karein:</p>
         
         <div class="calc-grid">
           <div class="calc-input-group">
@@ -690,7 +716,7 @@
             <input type="number" id="calcPips" value="20" oninput="calculateLotSize()">
           </div>
           <div class="calc-input-group">
-            <label>Asset Pair</label>
+            <label>Asset Class</label>
             <select id="calcPair" onchange="calculateLotSize()">
               <option value="10">Forex Majors (EURUSD/GBPUSD)</option>
               <option value="10">Gold (XAUUSD)</option>
@@ -700,7 +726,7 @@
 
         <div class="calc-result-box">
           <div>
-            <div style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">TOTAL RISK ($)</div>
+            <div style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono);">MAX ALLOWED RISK ($)</div>
             <div id="riskAmount" style="font-size:1.3rem; font-weight:700; color:var(--bear); font-family:var(--font-mono);">$100.00</div>
           </div>
           <div>
@@ -722,11 +748,11 @@
               <span class="mono" style="font-size:0.68rem; background:rgba(255,255,255,0.08); padding:0.2rem 0.5rem; border-radius:4px; color:var(--accent-cyan);">MT4 / MT5</span>
             </div>
             <p style="font-size:0.84rem; color:var(--text-dim); margin-top:0.6rem; line-height:1.5;">
-              Ultra-low spreads on Gold (XAUUSD) & EURUSD, zero execution requotes, aur instant local deposit & withdrawal options.
+              Competitive spreads on Gold (XAUUSD) & EURUSD, execution reliability, aur local funding options.
             </p>
           </div>
           <a href="https://www.xmglobal.com/referral?token=euiaFYBdchpNgiCGGQAtIQ" target="_blank" class="btn btn-outline" style="border-color: var(--bull); color: var(--bull); font-size:0.82rem;">
-            📈 Open XM Live Account (Rebates Activated)
+            📈 Open XM Account (Rebates Activated)
           </a>
         </div>
 
@@ -738,7 +764,7 @@
               <span class="mono" style="font-size:0.68rem; background:rgba(245,158,11,0.15); padding:0.2rem 0.5rem; border-radius:4px; color:var(--gold);">₹10L BTC Reward</span>
             </div>
             <p style="font-size:0.84rem; color:var(--text-dim); margin-top:0.6rem; line-height:1.5;">
-              Trade Spot or Futures on CoinDCX and win assured Bitcoin rewards worth up to ₹10 Lakhs with high security & deep orderbooks.
+              Trade Spot or Futures on CoinDCX and win assured Bitcoin rewards worth up to ₹10 Lakhs.
             </p>
           </div>
           <a href="https://invite.coindcx.com/46310547" target="_blank" class="btn btn-outline" style="border-color: var(--gold); color: var(--gold); font-size:0.82rem;">
@@ -748,10 +774,10 @@
       </div>
     </section>
 
-    <!-- TAB 4: LIVE TRADE JOURNAL -->
+    <!-- TAB 4: CASE STUDY LOGS & TRADE JOURNAL (UNIFIED GRAPHS) -->
     <section id="tab-journal" class="tab-pane">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-        <span class="mono" style="font-size:0.78rem; color:var(--text-dim);">CLICK SETUP TO INSPECT ANALYSIS</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <span class="mono" style="font-size:0.78rem; color:var(--text-dim);">HISTORICAL VECTOR STRATEGY CASE STUDIES</span>
         <div style="display:flex; gap:0.35rem;">
           <button class="btn btn-outline" onclick="filterLogs('all')" style="padding:0.3rem 0.7rem; font-size:0.72rem;">All</button>
           <button class="btn btn-outline" onclick="filterLogs('win')" style="padding:0.3rem 0.7rem; font-size:0.72rem; border-color:var(--bull); color:var(--bull);">Wins</button>
@@ -808,26 +834,25 @@
       </div>
 
       <p style="font-size:0.7rem; color:var(--text-subtle); max-width:600px; margin:0 auto 0.75rem;">
-        Trading involves substantial risk. Educational and informational purposes only. No financial advice.
+        Financial Disclaimer: Forex & CFD trading involves substantial risk of loss. Past case studies do not guarantee future performance. This platform is strictly for technical journaling and educational purposes.
       </p>
       <p style="font-size:0.72rem; color:var(--text-subtle);">© 2026 AAYU FOREX OPERATOR (FXOP247). All Rights Reserved.</p>
     </footer>
 
   </div>
 
-  <!-- Interactive Modal -->
+  <!-- Detail Modal -->
   <div class="modal-overlay" id="tradeModal" onclick="closeModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal()">&times;</button>
       <h2 id="mTitle" style="font-family: var(--font-display); font-size: 1.3rem;"></h2>
       <p id="mSub" style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono); margin: 0.3rem 0 1rem 0;"></p>
-      <div id="mChart" style="height: 200px; background: #020408; border-radius: 10px; margin-bottom: 1.25rem; overflow: hidden;"></div>
+      <div id="mChart" style="height: 220px; background: #04060a; border-radius: 12px; margin-bottom: 1.25rem; overflow: hidden; border: 1px solid var(--surface-border);"></div>
       <p id="mNotes" style="font-size: 0.92rem; color: var(--text-dim); line-height: 1.6;"></p>
     </div>
   </div>
 
   <script>
-    // Tab Navigation Logic
     function switchCategory(tabId, el) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
@@ -835,7 +860,6 @@
       el.classList.add('active');
     }
 
-    // Lot Size Calculator Logic
     function calculateLotSize() {
       const balance = parseFloat(document.getElementById('calcBalance').value) || 0;
       const risk = parseFloat(document.getElementById('calcRisk').value) || 0;
@@ -849,52 +873,94 @@
       document.getElementById('calculatedLot').innerText = `${lotSize.toFixed(2)} Lots`;
     }
 
-    // Artificial Vector Graphs
+    // ========================================================
+    // UNIFIED SMOOTH GLOWING VECTOR CHARTS (MAIN SCREENSHOT STYLE)
+    // ========================================================
     const svgBullGraph = `
-      <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bullGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/>
-            <stop offset="1%" stop-color="#10b981" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
           </linearGradient>
+          <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
-        <line x1="0" y1="45" x2="400" y2="45" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <line x1="0" y1="135" x2="400" y2="135" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <rect x="140" y="85" width="120" height="35" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.4)" stroke-dasharray="3,3"/>
-        <text x="145" y="105" fill="#818cf8" font-size="10" font-family="monospace">15M Bullish FVG</text>
-        <path d="M 20 140 L 80 140 L 110 155 L 140 90 L 190 95 L 240 60 L 310 50 L 380 25" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 20 140 L 80 140 L 110 155 L 140 90 L 190 95 L 240 60 L 310 50 L 380 25 L 380 180 L 20 180 Z" fill="url(#bullGrad)"/>
-        <line x1="110" y1="120" x2="110" y2="160" stroke="#f43f5e" stroke-width="1.5"/>
-        <rect x="105" y="130" width="10" height="20" fill="#f43f5e" rx="2"/>
-        <line x1="140" y1="75" x2="140" y2="110" stroke="#10b981" stroke-width="1.5"/>
-        <rect x="135" y="85" width="10" height="20" fill="#10b981" rx="2"/>
-        <circle cx="140" cy="90" r="4" fill="#6366f1"/>
-        <text x="150" y="82" fill="#fff" font-size="9" font-family="monospace">ENTRY (Long)</text>
+
+        <!-- Technical Grid -->
+        <line x1="0" y1="45" x2="420" y2="45" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="90" x2="420" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="135" x2="420" y2="135" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+        <!-- FVG Imbalance Box -->
+        <rect x="150" y="80" width="115" height="35" fill="rgba(99, 102, 241, 0.16)" stroke="rgba(99, 102, 241, 0.45)" stroke-dasharray="3,3" rx="4"/>
+        <text x="158" y="102" fill="#818cf8" font-size="10.5" font-family="'JetBrains Mono', monospace" font-weight="600">15M Bullish FVG</text>
+
+        <!-- Shaded Area Under Curve -->
+        <path d="M 20 135 C 70 135, 95 138, 120 155 C 135 140, 150 95, 175 90 C 220 85, 270 50, 320 40 C 360 32, 390 18, 400 15 L 400 180 L 20 180 Z" fill="url(#bullGrad)"/>
+
+        <!-- Glowing Trajectory Line -->
+        <path d="M 20 135 C 70 135, 95 138, 120 155 C 135 140, 150 95, 175 90 C 220 85, 270 50, 320 40 C 360 32, 390 18, 400 15" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" filter="url(#glowGreen)"/>
+
+        <!-- Candlesticks on Retest -->
+        <line x1="120" y1="125" x2="120" y2="165" stroke="#f43f5e" stroke-width="1.5"/>
+        <rect x="115" y="132" width="10" height="22" fill="#f43f5e" rx="2"/>
+
+        <line x1="150" y1="75" x2="150" y2="115" stroke="#10b981" stroke-width="1.5"/>
+        <rect x="145" y="82" width="10" height="22" fill="#10b981" rx="2"/>
+
+        <!-- Entry Execution Dot -->
+        <circle cx="150" cy="85" r="4.5" fill="#06b6d4" stroke="#fff" stroke-width="1.5"/>
+        <text x="158" y="75" fill="#e2e8f0" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700">ENTRY (Long)</text>
       </svg>
     `;
 
     const svgBearGraph = `
-      <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bearGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.2"/>
-            <stop offset="1%" stop-color="#f43f5e" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.0"/>
           </linearGradient>
+          <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
-        <line x1="0" y1="45" x2="400" y2="45" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <line x1="0" y1="135" x2="400" y2="135" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-        <rect x="130" y="30" width="110" height="30" fill="rgba(244, 63, 94, 0.15)" stroke="rgba(244, 63, 94, 0.4)" stroke-dasharray="3,3"/>
-        <text x="135" y="50" fill="#fb7185" font-size="10" font-family="monospace">4H Bearish OB</text>
-        <path d="M 20 70 L 70 65 L 120 25 L 170 45 L 220 110 L 290 120 L 380 160" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 20 70 L 70 65 L 120 25 L 170 45 L 220 110 L 290 120 L 380 160 L 380 180 L 20 180 Z" fill="url(#bearGrad)"/>
-        <line x1="120" y1="15" x2="120" y2="55" stroke="#10b981" stroke-width="1.5"/>
-        <rect x="115" y="25" width="10" height="20" fill="#10b981" rx="2"/>
-        <line x1="170" y1="35" x2="170" y2="85" stroke="#f43f5e" stroke-width="1.5"/>
-        <rect x="165" y="45" width="10" height="25" fill="#f43f5e" rx="2"/>
-        <circle cx="170" cy="45" r="4" fill="#f59e0b"/>
-        <text x="180" y="40" fill="#fff" font-size="9" font-family="monospace">SHORT ENTRY</text>
+
+        <!-- Technical Grid -->
+        <line x1="0" y1="45" x2="420" y2="45" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="90" x2="420" y2="90" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="0" y1="135" x2="420" y2="135" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+        <!-- Bearish Order Block Zone -->
+        <rect x="145" y="25" width="115" height="35" fill="rgba(244, 63, 94, 0.16)" stroke="rgba(244, 63, 94, 0.45)" stroke-dasharray="3,3" rx="4"/>
+        <text x="155" y="47" fill="#fb7185" font-size="10.5" font-family="'JetBrains Mono', monospace" font-weight="600">4H Bearish OB</text>
+
+        <!-- Shaded Area Under Curve -->
+        <path d="M 20 65 C 65 65, 100 45, 135 22 C 155 35, 185 85, 225 105 C 280 115, 340 145, 400 165 L 400 180 L 20 180 Z" fill="url(#bearGrad)"/>
+
+        <!-- Glowing Trajectory Line -->
+        <path d="M 20 65 C 65 65, 100 45, 135 22 C 155 35, 185 85, 225 105 C 280 115, 340 145, 400 165" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" filter="url(#glowRed)"/>
+
+        <!-- Candlesticks on Sweep -->
+        <line x1="135" y1="15" x2="135" y2="55" stroke="#10b981" stroke-width="1.5"/>
+        <rect x="130" y="22" width="10" height="22" fill="#10b981" rx="2"/>
+
+        <line x1="175" y1="35" x2="175" y2="80" stroke="#f43f5e" stroke-width="1.5"/>
+        <rect x="170" y="45" width="10" height="24" fill="#f43f5e" rx="2"/>
+
+        <!-- Execution Entry Marker -->
+        <circle cx="175" cy="45" r="4.5" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+        <text x="185" y="38" fill="#e2e8f0" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700">SHORT ENTRY</text>
       </svg>
     `;
 
@@ -980,29 +1046,24 @@
       });
     }
 
-    function filterLogs(type) {
-      renderFeed(type);
-    }
+    function filterLogs(type) { renderFeed(type); }
 
-    // Modal Handling
     function openModal(id) {
       const t = tradeData.find(x => x.id === id);
       if(!t) return;
       document.getElementById('mTitle').innerText = `${t.pair} — ${t.direction} (${t.rr})`;
-      document.getElementById('mSub').innerText = `${t.session} | Execution Date: ${t.date} | PnL: ${t.pnl}`;
+      document.getElementById('mSub').innerText = `${t.session} | Date: ${t.date} | PnL: ${t.pnl}`;
       document.getElementById('mChart').innerHTML = t.svg;
       document.getElementById('mNotes').innerHTML = `
-        <strong>Execution Levels:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}<br>
-        <strong>Technical Thesis:</strong> ${t.notes}
+        <strong>Historical Execution Levels:</strong> Entry: ${t.entry} | SL: ${t.sl} | TP: ${t.tp}<br>
+        <strong>Technical Case Study Thesis:</strong> ${t.notes}
       `;
       document.getElementById('tradeModal').classList.add('active');
     }
 
-    function closeModal() {
-      document.getElementById('tradeModal').classList.remove('active');
-    }
+    function closeModal() { document.getElementById('tradeModal').classList.remove('active'); }
 
-    // Chart.js Equity Curve
+    // Chart.js Equity Curve (Glowing Green Terminal Line)
     const ctx = document.getElementById('equityChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
@@ -1011,11 +1072,14 @@
         datasets: [{
           data: [10000, 10800, 10400, 12200, 13100, 14950, 14200, 16800],
           borderColor: '#10b981',
-          backgroundColor: 'rgba(16, 185, 129, 0.05)',
-          borderWidth: 2.5,
-          pointRadius: 2,
+          backgroundColor: 'rgba(16, 185, 129, 0.08)',
+          borderWidth: 3,
+          pointRadius: 4,
+          pointBackgroundColor: '#10b981',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 1.5,
           fill: true,
-          tension: 0.35
+          tension: 0.38
         }]
       },
       options: {
@@ -1023,13 +1087,12 @@
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b', font: { size: 10 } } },
-          y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b', font: { size: 10 } } }
+          x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b', font: { size: 10, family: "'JetBrains Mono', monospace" } } },
+          y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b', font: { size: 10, family: "'JetBrains Mono', monospace" } } }
         }
       }
     });
 
-    // Initial render
     renderFeed();
     calculateLotSize();
   </script>
